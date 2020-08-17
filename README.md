@@ -58,24 +58,10 @@ php artisan vendor:publish
 ~~~
 
 * Enable the GDPR Module from the Admin Panel
-
- Simply place this url in the
-
- For Default theme
+ 
 ~~~
-Admin->Settings->GDPR->Edit Channel->Footer Content->goto Code view->Add this line of url as you want
+Admin->Settings->GDPR
 ~~~
-
-~~~
-<li><a href="yourfronturl/public/guest/login">RMA Returns</a></li>
-~~~
-
- For Velocity theme
-
-~~~
-Admin->Velocity->Meta Data->Footer->Footer Middle Content->goto Code view->Add this line of url as you want
-~~~
-
 
 
 
