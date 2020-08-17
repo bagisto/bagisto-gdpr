@@ -76,9 +76,7 @@ Admin->Settings->GDPR->Edit Channel->Footer Content->goto Code view->Add this li
 Admin->Velocity->Meta Data->Footer->Footer Middle Content->goto Code view->Add this line of url as you want
 ~~~
 
-~~~
-<li><a href="yourfronturl/public/guest/login">RMA Returns</a></li>
-~~~
+
 
 
 > That's it, now just execute the project on your specified domain.
