@@ -1,0 +1,27 @@
+{
+    "name": "bagisto/bagisto-gdpr",
+    "description": "Bagisto GDPR",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Akhtar Khan",
+            "email": "akhtar.khan671@webkul.com"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Webkul\\GDPR\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webkul\\GDPR\\Providers\\GDPRServiceProvider"
+            ],
+            "aliases": {}
+        }
+    },
+    "minimum-stability": "dev"
+}
