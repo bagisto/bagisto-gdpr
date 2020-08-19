@@ -69,13 +69,13 @@ Admin->Settings->GDPR
 * Unzip the respective extension zip and then merge "packages" folder into project root directory.
 * Goto config/app.php file and add following line under 'providers'
 
-```
+```php
 Webkul\GDPR\Providers\GDPRServiceProvider::class
 ```
 
 * Goto composer.json file and add following line under 'psr-4'
 
-```
+```json
 "Webkul\\GDPR\\": "packages/Webkul/GDPR"
 ```
 Now run the following command:
