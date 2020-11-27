@@ -128,15 +128,30 @@ class CustomerController extends Controller
             $orders = $this->orderRepository->where('customer_id',$customer->id)->get();
             $address = $this->customerAddressRepository->where('customer_id',$customer->id)->get();
             $params = ['customerInformation'=>$customer,
-                    'order'=>$orders['0'],
-                    'address'=>$address['0']];
+                    'order'=>$orders,
+                    'address'=>$address];
+
+            foreach ($params['order'] as $value) {
+                $orderData[] = $value;   
+            }
+
+            foreach ($params['address'] as $value) {
+                $addressData[] = $value;   
+            }
+
+            $param = ['order' => $orderData,
+                    'address' => $addressData,
+                    'customerInformation' => $customer];
 
         }catch(\Exception $e){
 
-        $params = ['customerInformation'=>$customer];
+        $param = ['customerInformation'=>$customer];
         }
-            
-        $pdf = PDF::loadView('gdpr::shop.customers.gdpr.pdfview', compact('params'))->setPaper('a4');
+        
+        $orientation = 'landscape';
+        $customPaper = array(0,0,950,950);
+
+        $pdf = PDF::loadView('gdpr::shop.customers.gdpr.pdfview', compact('param'));
 
         return $pdf->download('customerInfo'.'.pdf');
     }
