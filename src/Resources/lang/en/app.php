@@ -140,9 +140,10 @@ return [
     ],
 
     'response' => [
-        'update-success' => 'Data Request updated successfully.',
+        'update-success' => 'Data Request updated successfully and Email Sent to Customer.',
         'delete-success' => ':Data Request deleted successfully.',
         'attribute-reason-error' => 'Unable to Delete.',
+        'update-success-unsent-email' => 'Data Request updated successfully But Email unsent to Customer.',
     ],
 
     'general' => [

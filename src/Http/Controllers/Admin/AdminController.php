@@ -5,6 +5,7 @@ namespace Webkul\GDPR\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Mail;
 use Webkul\GDPR\Http\Controllers\Controller;
 use Webkul\GDPR\Repositories\GDPRRepository;
+use Webkul\GDPR\Mail\AdminUpdateDataRequestMail;
 use Webkul\GDPR\Repositories\GDPRDataRequestRepository;
 use DB;
 
@@ -119,10 +120,27 @@ class AdminController extends Controller
     public function update()
     {
        $data = request()->except('_token');
+       $customer = auth()->guard('customer')->user();
 
-       $this->gdprDataRequestRepository->find($data['id'])->update($data);
+       $result = $this->gdprDataRequestRepository->find($data['id'])->update($data);
 
-       session()->flash('success', trans('gdpr::app.response.update-success', ['name' => 'Data Request']));
+       $params = $data + [
+                'customer_id'=>$customer->id,
+                'email'=>$customer->email,
+            ];
+
+         if($result)
+            {
+                try{
+                        Mail::queue(new AdminUpdateDataRequestMail($params));
+
+                        session()->flash('success', trans('gdpr::app.response.update-success', ['name' => 'Data Request']));
+                        
+                 }catch (\Exception $e) {
+
+                        session()->flash('success', trans('gdpr::app.response.update-success-unsent-email', ['name' => 'Data Request']));      
+                }
+            }
 
        return redirect()->route($this->_config['redirect']);
     }
