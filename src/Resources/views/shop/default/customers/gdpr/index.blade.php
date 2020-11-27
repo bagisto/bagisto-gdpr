@@ -71,7 +71,7 @@
                         <div class="row">
                             <div class="control-group col-12">
                                 <input type="hidden" id="request_type" name="request_type" value="{{ __('gdpr::app.shop.customer-gdpr-data-request.request-type-update') }}">
-                                <textarea class="control" id="update_message" name="update_message"></textarea> 
+                                <textarea class="control" id="update_message" maxlength="190" name="update_message"></textarea> 
                             </div>
                         </div>
                         <div class="control-group">
@@ -105,7 +105,7 @@
                         <div class="row">
                             <div class="control-group col-12">
                                 <input type="hidden" id="request_type" name="request_type" value="{{ __('gdpr::app.shop.customer-gdpr-data-request.request-type-delete') }}">
-                                <textarea class="control" id="delete_message" name="delete_message"></textarea> 
+                                <textarea class="control" id="delete_message" maxlength="190" name="delete_message"></textarea> 
                             </div>
                         </div>
                         <div class="control-group">

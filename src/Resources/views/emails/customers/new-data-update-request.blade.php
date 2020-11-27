@@ -19,8 +19,8 @@
     </div>
 
 
-    <div style="display: flex;flex-direction: row;margin-top: 20px;justify-content: space-between;margin-bottom: 20px;">
-        <div style="line-height: 25px;">
+    <div style="flex-direction: row;margin-top: 20px;justify-content: space-between;margin-bottom: 20px;">
+        <div>
         
             <div style="font-weight: bold;font-size: 16px;color: #242424">
                 {{ __('gdpr::app.mail.new-data-request.request-status') }}
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div style="line-height: 25px;">
+        <div>
             <div style="font-weight: bold;font-size: 16px;color: #242424;">
                 {{ __('gdpr::app.mail.new-data-request.request-type') }}
             </div>

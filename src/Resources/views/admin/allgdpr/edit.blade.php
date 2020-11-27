@@ -85,9 +85,8 @@
                     <div class="control-group" :class="[errors.has('message') ? 'has-error' : '']">
                         <label for="message"b
                             class="required">{{ __('gdpr::app.shop.customer-index-field.message') }}</label>
-                        <input type="text" v-validate="'required'" class="control" id="message" name="message"
-                            value="{{ $data['message'] }}"
-                            data-vv-as="&quot;{{ __('gdpr::app.shop.customer-index-field.message') }}&quot;" />
+                        
+                        <textarea v-validate="'required'" class="control" id="message" maxlength="190" name="message" data-vv-as="&quot;{{ __('gdpr::app.shop.customer-index-field.message') }}&quot;">{{ $data['message'] }}</textarea>
                         <span class="control-error" v-if="errors.has('message')">@{{ errors.first('message') }}</span>
                     </div>
 
