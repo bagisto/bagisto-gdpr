@@ -62,7 +62,7 @@
                         <label for="request_type"
                             class="required">{{ __('gdpr::app.shop.customer-index-field.request_type') }}</label>
 
-                        <select class="control" v-validate="'required'" id="request_type" name="request_type"
+                        <select class="control" v-validate="'required'" id="request_type" name="request_type" disabled 
                             data-vv-as="&quot;{{ __('gdpr::app.admin.customer-index-field.request_type') }}&quot;">
                             @php($request_type = ['Update','Delete'])
                             @foreach($request_type as $status_val)
