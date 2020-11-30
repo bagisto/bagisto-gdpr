@@ -37,10 +37,11 @@ use Illuminate\Support\ServiceProvider;
             __DIR__ . '/../Resources/views/shop/velocity/customers/signup/index.blade.php'
             => resource_path('themes/velocity/views/customers/signup/index.blade.php'),
 
-
             __DIR__ . '/../Resources/views/shop/velocity/layouts/master.blade.php'
             => resource_path('themes/velocity/views/layouts/master.blade.php'),
 
+            __DIR__ . '/../Resources/views/shop/velocity/UI/header.blade.php'
+            => resource_path('themes/velocity/views/UI/header.blade.php'),
 
             ]);
 
