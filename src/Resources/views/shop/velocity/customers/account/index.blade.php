@@ -49,7 +49,7 @@
 
 @push('css')
     <style>
-        .icon.rma::before {
+        .icon.gdpr::before {
             content: "\E92A"
         }
         .account-head .account-action {
