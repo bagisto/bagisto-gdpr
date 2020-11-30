@@ -76,6 +76,13 @@
             {!! view_render_event('bagisto.shop.customers.signup_form_controls.after') !!}
           
             <?php
+            $gdprRepository = app('Webkul\GDPR\Repositories\GDPRRepository');
+
+                        $gdpr = $gdprRepository->get();
+
+                        foreach ($gdpr as $value) {
+                            $gdprData = $value;
+                        }
                 try{
                     if($gdprData && $gdprData->customer_agreement_status == 1){
             ?>

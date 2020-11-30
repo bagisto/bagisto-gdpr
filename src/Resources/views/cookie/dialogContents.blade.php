@@ -1,5 +1,16 @@
-@if(Session::get('gdpr_status') == 1 && Session::get('cookie_status') == 1)
-    @if(Session::get('cookie_block_position') == 'bottom-left')
+<?php 
+
+$gdprRepository = app('Webkul\GDPR\Repositories\GDPRRepository');
+
+$gdpr = $gdprRepository->get();
+
+foreach ($gdpr as $value) {
+    $gdprData = $value;
+}
+
+?>
+@if($gdprData->gdpr_status == 1 && $gdprData->cookie_status == 1)
+    @if($gdprData->cookie_block_position == 'bottom-left')
         <div class="cookieConsentContainer js-cookie-consent cookie-consent" id="cookieConsentContainer" style="opacity: 1; display: block; left:10px;">
     @else
         <div class="cookieConsentContainer js-cookie-consent cookie-consent" id="cookieConsentContainer" style="opacity: 1; display: block;">
