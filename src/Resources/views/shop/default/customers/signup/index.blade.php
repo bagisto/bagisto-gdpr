@@ -90,9 +90,9 @@
             <div class="control-group" :class="[errors.has('agreement') ? 'has-error' : '']">
 
                 <input type="checkbox" id="checkbox2" name="agreement" v-validate="'required'" data-vv-as="&quot;{{ __('shop::app.customer.signup-form.agreement') }}&quot;">
-                <span>
+                <label class="required">
                     <a href="#" data-toggle="modal" data-target="#termsCondition">{{ $gdprData->agreement_label }}</a>              
-                </span>
+                </label>
                 <span class="control-error" v-if="errors.has('agreement')">@{{ errors.first('agreement') }}</span>
             </div> 
 
