@@ -92,7 +92,7 @@
                                             <textarea class="control"
                                             id="update_message"
                                             name="update_message"
-                                            maxlength="190"></textarea> 
+                                            maxlength="500"></textarea> 
                                         </div>
                                         <div class="control-group">
                                             <button type="submit" class="btn btn-lg btn-primary" style="display: inline-block; width: auto; margin-left: 16px; margin-top: -20px;">
@@ -135,7 +135,7 @@
                                             <textarea class="control"
                                             id="delete_message"
                                             name="delete_message"
-                                            maxlength="190"></textarea> 
+                                            maxlength="500"></textarea> 
                                         </div>
 
                                         <div class="control-group">

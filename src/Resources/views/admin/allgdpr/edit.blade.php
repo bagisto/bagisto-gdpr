@@ -86,7 +86,7 @@
                         <label for="message"b
                             class="required">{{ __('gdpr::app.shop.customer-index-field.message') }}</label>
                         
-                        <textarea v-validate="'required'" class="control" id="message" maxlength="190" name="message" data-vv-as="&quot;{{ __('gdpr::app.shop.customer-index-field.message') }}&quot;">{{ $data['message'] }}</textarea>
+                        <textarea v-validate="'required'" class="control" id="message" maxlength="500" name="message" data-vv-as="&quot;{{ __('gdpr::app.shop.customer-index-field.message') }}&quot;">{{ $data['message'] }}</textarea>
                         <span class="control-error" v-if="errors.has('message')">@{{ errors.first('message') }}</span>
                     </div>
 
