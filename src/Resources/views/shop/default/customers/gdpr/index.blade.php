@@ -64,7 +64,7 @@
                              <div class="horizontal-rule"></div>
                         </div>
                         <div class="sale-title">
-                            <div class="section-title">
+                            <div class="section-title required">
                                 {{ __('gdpr::app.shop.customer-gdpr-data-request.update-description') }}
                             </div>
                         </div>
@@ -98,7 +98,7 @@
                              <div class="horizontal-rule"></div>
                         </div>
                         <div class="sale-title">
-                            <div class="section-title">
+                            <div class="section-title required">
                                 {{ __('gdpr::app.shop.customer-gdpr-data-request.delete-reason') }}
                             </div>
                         </div>
