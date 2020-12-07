@@ -62,9 +62,10 @@
 
 @media (max-width: 980px) {
 	.cookieConsentContainer {
-		bottom: 0px !important;
-		left: 0px !important;
-		width: 100%  !important;
+		bottom: 60px !important;
+        left: 30px !important;
+        height: 200px !important;
+        width: 300px !important;
 	}
 }
 
