@@ -139,9 +139,18 @@ class CustomerController extends Controller
                 $addressData[] = $value;   
             }
 
-            $param = ['order' => $orderData,
+            if(!empty($orderData) && !empty($addressData)) {
+                $param = ['order' => $orderData,
                     'address' => $addressData,
                     'customerInformation' => $customer];
+
+            } else if(empty($orderData)) {
+                $param = ['address' => $addressData,
+                    'customerInformation' => $customer];
+            } else {
+                $param = ['order' => $orderData,
+                    'customerInformation' => $customer];
+            }
 
         }catch(\Exception $e){
 
@@ -175,9 +184,18 @@ class CustomerController extends Controller
                 $addressData[] = $value;   
             }
 
-            $param = ['order' => $orderData,
+            if(!empty($orderData) && !empty($addressData)) {
+                $param = ['order' => $orderData,
                     'address' => $addressData,
                     'customerInformation' => $customer];
+
+            } else if(empty($orderData)) {
+                $param = ['address' => $addressData,
+                    'customerInformation' => $customer];
+            } else {
+                $param = ['order' => $orderData,
+                    'customerInformation' => $customer];
+            }
 
         }catch(\Exception $e){
 
