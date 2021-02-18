@@ -162,10 +162,10 @@ class CustomerController extends Controller
         $param = ['customerInformation'=>$customer];
         }
         
-        $orientation = 'landscape';
-        $customPaper = array(0,0,950,950);
-
         $pdf = PDF::loadView('gdpr::shop.customers.gdpr.pdfview', compact('param'));
+
+        $paper_orientation = 'portrait';
+        $pdf->setPaper('a4',$paper_orientation);
 
         return $pdf->download('customerInfo'.'.pdf');
     }

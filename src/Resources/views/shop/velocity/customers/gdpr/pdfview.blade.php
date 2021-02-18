@@ -24,56 +24,56 @@
                     <h2> Account Information </h2>
                         <div class="table address">
                             <br>
-                                <table>
-                                    <tr>
-                                        <td>First Name</td>
+                                <div>
+                                    <div>
+                                        <label>First Name</label>
                                         @if($param['customerInformation']->first_name)
-                                            <td>{{ $param['customerInformation']->first_name }}</td>
+                                            <span>{{ $param['customerInformation']->first_name }}</span>
                                         @else
-                                            <td>#NA</td>
+                                            <span>#NA</span>
                                         @endif
-                                    </tr>
-                                    <tr>
-                                        <td>Last Name</td>
+                                    </div>
+                                    <div>
+                                        <label>Last Name</label>
                                         @if($param['customerInformation']->last_name)
-                                            <td>{{ $param['customerInformation']->last_name }}</td>
+                                            <span>{{ $param['customerInformation']->last_name }}</span>
                                         @else
-                                            <td>#NA</td>
+                                            <span>#NA</span>
                                         @endif
-                                    </tr>
-                                    <tr>
-                                        <td>Email</td>
+                                    </div>
+                                    <div>
+                                        <label>Email</label>
                                         @if($param['customerInformation']->email)
-                                            <td>{{ $param['customerInformation']->email }}</td>
+                                            <span>{{ $param['customerInformation']->email }}</span>
                                         @else
-                                            <td>#NA</td>
+                                            <span>#NA</span>
                                         @endif
-                                    </tr>
-                                    <tr>
-                                        <td>Gender</td>
+                                    </div>
+                                    <div>
+                                        <label>Gender</label>
                                         @if($param['customerInformation']->gender)
-                                            <td>{{ $param['customerInformation']->gender }}</td>
+                                            <span>{{ $param['customerInformation']->gender }}</span>
                                         @else
-                                            <td>#NA</td>
+                                            <span>#NA</span>
                                         @endif
-                                    </tr>
-                                    <tr>
-                                        <td>Date Of Birth</td>
+                                    </div>
+                                    <div>
+                                        <label>Date Of Birth</label>
                                         @if($param['customerInformation']->date_of_birth)
-                                            <td>{{ $param['customerInformation']->date_of_birth }}</td>
+                                            <span>{{ $param['customerInformation']->date_of_birth }}</span>
                                         @else
-                                            <td>#NA</td>
+                                            <span>#NA</span>
                                         @endif
-                                    </tr>
-                                    <tr>
-                                        <td>Phone</td>
+                                    </div>
+                                    <div>
+                                        <label>Phone</label>
                                         @if($param['customerInformation']->phone)
-                                            <td>{{ $param['customerInformation']->phone }}</td>
+                                            <span>{{ $param['customerInformation']->phone }}</span>
                                         @else
-                                            <td>#NA</td>
+                                            <span>#NA</span>
                                         @endif
-                                    </tr>
-                                </table>
+                                    </div>
+                                </div>
                             <br>
                         </div>                  
     
@@ -82,57 +82,57 @@
                             @if(isset($param['address']))
                                 @foreach($param['address'] as $params)
                                     <br>
-                                        <table>
-                                            <th class="heading">Address - {{$params->id}}</th>
-                                            <tr>
-                                                <td>City</td>
+                                        <div>
+                                            <div class="heading">Address - {{$params->id}}</div>
+                                            <div>
+                                                <label>City</label>
                                                 @if($params->city)
-                                                    <td>{{ $params->city }}</td>
+                                                    <span>{{ $params->city }}</span>
                                                 @else
-                                                    <td>#NA</td>
+                                                    <span>#NA</span>
                                                 @endif
-                                            </tr>
-                                            <tr>
-                                                <td>Company</td>
+                                            </div>
+                                            <div>
+                                                <label>Company</label>
                                                 @if($params->company_name)
-                                                    <td>{{ $params->company_name }}</td>
+                                                    <span>{{ $params->company_name }}</span>
                                                 @else
-                                                    <td>#NA</td>
+                                                    <span>#NA</span>
                                                 @endif
-                                            </tr>
-                                            <tr>
-                                                <td>Country</td>
+                                            </div>
+                                            <div>
+                                                <label>Country</label>
                                                 @if($params->country)
-                                                    <td>{{ core()->country_name($params->country) }}</td>
+                                                    <span>{{ core()->country_name($params->country) }}</span>
                                                 @else
-                                                    <td>#NA</td>
+                                                    <span>#NA</span>
                                                 @endif
-                                            </tr>
-                                            <tr>
-                                                <td>First Name</td>
+                                            </div>
+                                            <div>
+                                                <label>First Name</label>
                                                 @if($params->first_name)
-                                                    <td>{{ $params->first_name }}</td>
+                                                    <span>{{ $params->first_name }}</span>
                                                 @else
-                                                    <td>#NA</td>
+                                                    <span>#NA</span>
                                                 @endif
-                                            </tr>
-                                            <tr>
-                                                <td>Last name</td>
+                                            </div>
+                                            <div>
+                                                <label>Last name</label>
                                                 @if($params->last_name)
-                                                    <td>{{ $params->last_name }}</td>
+                                                    <span>{{ $params->last_name }}</span>
                                                 @else
-                                                    <td>#NA</td>
+                                                    <span>#NA</span>
                                                 @endif
-                                            </tr>
-                                            <tr>
-                                                <td>Phone</td>
+                                            </div>
+                                            <div>
+                                                <label>Phone</label>
                                                 @if($params->phone)
-                                                    <td>{{ $params->phone }}</td>
+                                                    <span>{{ $params->phone }}</span>
                                                 @else
-                                                    <td>#NA</td>
+                                                    <span>#NA</span>
                                                 @endif
-                                            </tr>
-                                        </table>
+                                            </div>
+                                        </div>
                                     <br>
                                  @endforeach
                             @endif   
@@ -143,73 +143,73 @@
                             @if(isset($param['order']))
                                 @foreach($param['order'] as $params)
                                     <br>
-                                        <table>
-                                            <th class="heading" align="left">Order - {{$params->id}}</th>
-                                            <tr>
-                                                <td>Order ID</td>
+                                        <div>
+                                            <div class="heading" align="left">Order - {{$params->id}}</div>
+                                            <div>
+                                                <label>Order ID</label>
                                                 @if($params->id)
-                                                    <td>{{ $params->id }}</td>
+                                                    <span>{{ $params->id }}</span>
                                                 @else
-                                                    <td>#NA</td>
+                                                    <span>#NA</span>
                                                 @endif
-                                            </tr>
-                                            <tr>
-                                                <td>Status</td>
+                                            </div>
+                                            <div>
+                                                <label>Status</label>
                                                 @if($params->status)
-                                                    <td>{{ $params->status }}</td>
+                                                    <span>{{ $params->status }}</span>
                                                 @else
-                                                    <td>#NA</td>
+                                                    <span>#NA</span>
                                                 @endif
-                                            </tr>
-                                            <tr>
-                                                <td>Shipping</td>
+                                            </div>
+                                            <div>
+                                                <label>Shipping</label>
                                                 @if($params->shipping_title)
-                                                    <td>{{ $params->shipping_title }}</td>
+                                                    <span>{{ $params->shipping_title }}</span>
                                                 @else
-                                                    <td>#NA</td>
+                                                    <span>#NA</span>
                                                 @endif
-                                            </tr>
-                                            <tr>
-                                                <td>Customer First Name</td>
+                                            </div>
+                                            <div>
+                                                <label>Customer First Name</label>
                                                 @if($params->customer_first_name)
-                                                    <td>{{ $params->customer_first_name }}</td>
+                                                    <span>{{ $params->customer_first_name }}</span>
                                                 @else
-                                                    <td>#NA</td>
+                                                    <span>#NA</span>
                                                 @endif
-                                            </tr>
-                                            <tr>
-                                                <td>Customer Last Name</td>
+                                            </div>
+                                            <div>
+                                                <label>Customer Last Name</label>
                                                 @if($params->customer_last_name)
-                                                    <td>{{ $params->customer_last_name }}</td>
+                                                    <span>{{ $params->customer_last_name }}</span>
                                                 @else
-                                                    <td>#NA</td>
+                                                    <span>#NA</span>
                                                 @endif
-                                            </tr>
-                                            <tr>
-                                                <td>Customer Company Name</td>
+                                            </div>
+                                            <div>
+                                                <label>Customer Company Name</label>
                                                 @if($params->company_name)
-                                                    <td>{{ $params->company_name }}</td>
+                                                    <span>{{ $params->company_name }}</span>
                                                 @else
-                                                    <td>#NA</td>
+                                                    <span>#NA</span>
                                                 @endif
-                                            </tr>
-                                            <tr>
-                                                <td>Order Quantity</td>
+                                            </div>
+                                            <div>
+                                                <label>Order Quantity</label>
                                                 @if($params->total_qty_ordered)
-                                                    <td>{{ $params->total_qty_ordered }}</td>
+                                                    <span>{{ $params->total_qty_ordered }}</span>
                                                 @else
-                                                    <td>#NA</td>
+                                                    <span>#NA</span>
                                                 @endif
-                                            </tr>
-                                            <tr>
-                                                <td>Order Amount</td>
+                                            </div>
+                                            <div>
+                                                <label>Order Amount</label>
                                                 @if($params->grand_total)
-                                                    <td>{{ $params->grand_total }}</td>
+                                                    <span>{{ $params->grand_total }}</span>
                                                 @else
-                                                    <td>#NA</td>
+                                                    <span>#NA</span>
                                                 @endif
-                                            </tr>
-                                        </table>
+                                            </div>
+                                        </div>
                                     <br>
                                 @endforeach
                             @endif   
