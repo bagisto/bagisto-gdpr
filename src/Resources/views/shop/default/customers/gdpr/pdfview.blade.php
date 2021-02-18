@@ -187,8 +187,8 @@
                                             </tr>
                                             <tr>
                                                 <td>Customer Company Name</td>
-                                                @if($params->customer_company_name)
-                                                    <td>{{ $params->customer_company_name }}</td>
+                                                @if($params->company_name)
+                                                    <td>{{ $params->company_name }}</td>
                                                 @else
                                                     <td>#NA</td>
                                                 @endif

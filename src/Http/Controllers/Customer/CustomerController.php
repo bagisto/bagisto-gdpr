@@ -125,8 +125,13 @@ class CustomerController extends Controller
 
         $customer = auth()->guard('customer')->user();
         try{
-            $orders = $this->orderRepository->where('customer_id',$customer->id)->get();
-            $address = $this->customerAddressRepository->where('customer_id',$customer->id)->get();
+            $orders =  DB::table('orders')
+                        ->leftJoin('addresses as order_address', 'orders.id', '=', 'order_address.order_id')
+                        ->where('order_address.customer_id',$customer->id)
+                        ->where('order_address.address_type','order_billing')
+                        ->get();
+                      
+            $address = $this->customerAddressRepository->where('address_type','customer')->where('customer_id',$customer->id)->get();
             $params = ['customerInformation'=>$customer,
                     'order'=>$orders,
                     'address'=>$address];
@@ -170,8 +175,13 @@ class CustomerController extends Controller
         
         $customer = auth()->guard('customer')->user();
         try{
-            $orders = $this->orderRepository->where('customer_id',$customer->id)->get();
-            $address = $this->customerAddressRepository->where('customer_id',$customer->id)->get();
+            $orders =  DB::table('orders')
+                        ->leftJoin('addresses as order_address', 'orders.id', '=', 'order_address.order_id')
+                        ->where('order_address.customer_id',$customer->id)
+                        ->where('order_address.address_type','order_billing')
+                        ->get();
+                      
+            $address = $this->customerAddressRepository->where('address_type','customer')->where('customer_id',$customer->id)->get();
             $params = ['customerInformation'=>$customer,
                     'order'=>$orders,
                     'address'=>$address];
