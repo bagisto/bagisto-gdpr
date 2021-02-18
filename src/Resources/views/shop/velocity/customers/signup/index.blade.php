@@ -186,11 +186,11 @@
 <template>
     <div class="modal-parent scrollable" style="display:none" id="modal_view">
         <div class="modal-container">
-            <div id="close-button" style="background: #000000;color: #FFFFFF;font-family: 'Helvetica', 'Arial', sans-serif;
-                font-size: 1em;font-weight: bold;text-align: center;width: 20px;height: 20px;
-                border-radius: 5px; margin-left: 560px; margin-top: 5px;">
-                    <span id="x" @click="closeModal">X</span>
+            
+            <div id="close-button">
+                    <button id="x" style="float: right; margin-top: 10px; margin-right: 15px; font-size: 1.5rem; border: none; background-color: white;" @click="closeModal">X</button>
             </div>
+            
             <div class="modal-header">
                 <slot name="header">
                     Terms & Conditions
