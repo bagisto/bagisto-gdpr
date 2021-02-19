@@ -120,13 +120,18 @@ class AdminController extends Controller
     public function update()
     {
        $data = request()->except('_token');
-       $customer = auth()->guard('customer')->user();
+       
+       $request = $this->gdprDataRequestRepository->where('id',$data['id'])->get();
 
+       foreach($request as $value) {
+           $requestData = $value;
+       }
+       
        $result = $this->gdprDataRequestRepository->find($data['id'])->update($data);
 
        $params = $data + [
-                'customer_id'=>$customer->id,
-                'email'=>$customer->email,
+                'customer_id'=>$requestData->customer_id,
+                'email'=>$requestData->email,
             ];
 
          if($result)

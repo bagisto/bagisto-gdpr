@@ -75,6 +75,7 @@ return [
             'request-status' => 'Request Status :',
             'message' => 'Message',
             'thank-you' => 'Thank you',
+            'status-of-request' => 'Status Of Request',
         ],
         'customer-data-table-heading' => [
             'product-name' => 'Product Name',

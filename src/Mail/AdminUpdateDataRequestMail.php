@@ -11,10 +11,11 @@ class AdminUpdateDataRequestMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $dataUpdateRequest;
+    public $adminUpdateRequest;
 
-    public function __construct($dataUpdateRequest) {
-        $this->dataUpdateRequest = $dataUpdateRequest;
+    public function __construct($adminUpdateRequest) {
+        $this->adminUpdateRequest = $adminUpdateRequest;
+
     }
 
     /**
@@ -24,8 +25,8 @@ class AdminUpdateDataRequestMail extends Mailable
      */
     public function build()
     {
-        return $this->to($this->dataUpdateRequest['email'])
-            ->subject('New Update of Data Request')
-            ->view('gdpr::emails.customers.new-data-update-request')->with($this->dataUpdateRequest);
+        return $this->to($this->adminUpdateRequest['email'])
+            ->subject('Request Status')
+            ->view('gdpr::emails.customers.admin-update-data-request')->with($this->adminUpdateRequest);
     }
 }
