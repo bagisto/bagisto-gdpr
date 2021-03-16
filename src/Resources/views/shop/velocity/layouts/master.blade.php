@@ -1,72 +1,65 @@
-@php
-    $velocityHelper = app('Webkul\Velocity\Helpers\Helper');
-    $velocityMetaData = $velocityHelper->getVelocityMetaData();
-    
-    view()->share('velocityMetaData', $velocityMetaData);
-@endphp
-
 @push('css')
 <style type="text/css">
 
 .cookieConsentContainer {
-	z-index: 999;
-	width: 350px;
-	min-height: 20px;
-	box-sizing: border-box;
-	padding: 30px 30px 30px 30px;
-	background: #181fea80;
-	overflow: hidden;
-	position: fixed;
+    z-index: 999;
+    width: 350px;
+    min-height: 20px;
+    box-sizing: border-box;
+    padding: 30px 30px 30px 30px;
+    background: #181fea80;
+    overflow: hidden;
+    position: fixed;
     bottom: 30px;
-	right: 30px;
-	display: none;
+    right: 30px;
+    display: none;
 }
 .cookieConsentContainer .cookieTitle a {
-	font-family: OpenSans, arial, "sans-serif";
-	color: #23e211;
-	font-size: 22px;
-	line-height: 20px;
-	display: block;
+    font-family: OpenSans, arial, "sans-serif";
+    color: #23e211;
+    font-size: 22px;
+    line-height: 20px;
+    display: block;
 }
 .cookieConsentContainer .cookieDesc p {
-	margin: 0;
-	padding: 0;
-	font-family: OpenSans, arial, "sans-serif";
-	color: #FFFFFF;
-	font-size: 13px;
-	line-height: 20px;
-	display: block;
-	margin-top: 10px;
+    margin: 0;
+    padding: 0;
+    font-family: OpenSans, arial, "sans-serif";
+    color: #FFFFFF;
+    font-size: 13px;
+    line-height: 20px;
+    display: block;
+    margin-top: 10px;
 } .cookieConsentContainer .cookieDesc a {
-	font-family: OpenSans, arial, "sans-serif";
-	color: #FFFFFF;
-	text-decoration: underline;
+    font-family: OpenSans, arial, "sans-serif";
+    color: #FFFFFF;
+    text-decoration: underline;
 }
 .cookieConsentContainer .cookieButton a {
-	display: inline-block;
-	font-family: OpenSans, arial, "sans-serif";
-	color: #FFFFFF;
-	font-size: 14px;
-	font-weight: bold;
-	margin-top: 14px;
-	background: #efe708;
-	box-sizing: border-box; 
-	padding: 15px 24px;
-	text-align: center;
-	transition: background 0.3s;
+    display: inline-block;
+    font-family: OpenSans, arial, "sans-serif";
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 14px;
+    background: #efe708;
+    box-sizing: border-box; 
+    padding: 15px 24px;
+    text-align: center;
+    transition: background 0.3s;
 }
 .cookieConsentContainer .cookieButton a:hover { 
-	cursor: pointer;
-	background: #0adfcd;
+    cursor: pointer;
+    background: #0adfcd;
 }
 
 @media (max-width: 980px) {
-	.cookieConsentContainer {
-		bottom: 60px !important;
+    .cookieConsentContainer {
+        bottom: 60px !important;
         left: 30px !important;
         height: 200px !important;
         width: 300px !important;
-	}
+    }
 }
 
 </style>
@@ -77,64 +70,44 @@
 <html lang="{{ app()->getLocale() }}">
 
     <head>
+        {{-- title --}}
         <title>@yield('page_title')</title>
 
+        {{-- meta data --}}
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta http-equiv="content-language" content="{{ app()->getLocale() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link rel="stylesheet" href="{{ asset('themes/velocity/assets/css/velocity.css') }}" />
-        <link rel="stylesheet" href="{{ asset('themes/velocity/assets/css/bootstrap.min.css') }}" />
-        <link rel="stylesheet" href="{{ asset('themes/velocity/assets/css/google-font.css') }}" />
+        {!! view_render_event('bagisto.shop.layout.head') !!}
 
-        @if (core()->getCurrentLocale()->direction == 'rtl')
-            <link href="{{ asset('themes/velocity/assets/css/bootstrap-flipped.css') }}" rel="stylesheet">
-        @endif
+        {{-- for extra head data --}}
+        @yield('head')
 
+        {{-- seo meta data --}}
+        @section('seo')
+            <meta name="description" content="{{ core()->getCurrentChannel()->description }}"/>
+        @show
+
+        {{-- fav icon --}}
         @if ($favicon = core()->getCurrentChannel()->favicon_url)
             <link rel="icon" sizes="16x16" href="{{ $favicon }}" />
         @else
             <link rel="icon" sizes="16x16" href="{{ asset('/themes/velocity/assets/images/static/v-icon.png') }}" />
         @endif
 
-        <script
-            type="text/javascript"
-            src="{{ asset('themes/velocity/assets/js/jquery.min.js') }}">
-        </script>
-
-        <script
-            type="text/javascript"
-            baseUrl="{{ url()->to('/') }}"
-            src="{{ asset('themes/velocity/assets/js/velocity.js') }}">
-        </script>
-
-        <script
-            type="text/javascript"
-            src="{{ asset('themes/velocity/assets/js/jquery.ez-plus.js') }}">
-        </script>
-
-        @yield('head')
-
-        @section('seo')
-            <meta name="description" content="{{ core()->getCurrentChannel()->description }}"/>
-        @show
-
-        @stack('css')
-
-        {!! view_render_event('bagisto.shop.layout.head') !!}
-
+        {{-- all styles --}}
+        @include('shop::layouts.styles')
     </head>
 
-    <body @if (core()->getCurrentLocale()->direction == 'rtl') class="rtl" @endif>
+    <body @if (core()->getCurrentLocale() && core()->getCurrentLocale()->direction == 'rtl') class="rtl" @endif>
         {!! view_render_event('bagisto.shop.layout.body.before') !!}
 
         @include('shop::UI.particals')
 
+        {{-- main app --}}
         <div id="app">
-            {{-- <responsive-sidebar v-html="responsiveSidebarTemplate"></responsive-sidebar> --}}
-
             <product-quick-view v-if="$root.quickView"></product-quick-view>
 
             <div class="main-container-wrapper">
@@ -142,7 +115,7 @@
                 @section('body-header')
                     @include('shop::layouts.top-nav.index')
 
-                        @include('gdpr::cookie.index')
+                     @include('gdpr::cookie.index')
 
                     {!! view_render_event('bagisto.shop.layout.header.before') !!}
 
@@ -206,7 +179,7 @@
             </div>
         </div>
 
-        <!-- below footer -->
+        {{-- footer --}}
         @section('footer')
             {!! view_render_event('bagisto.shop.layout.footer.before') !!}
 
@@ -219,62 +192,7 @@
 
         <div id="alert-container"></div>
 
-        <script type="text/javascript">
-            (() => {
-                window.showAlert = (messageType, messageLabel, message) => {
-                    if (messageType && message !== '') {
-                        let alertId = Math.floor(Math.random() * 1000);
-
-                        let html = `<div class="alert ${messageType} alert-dismissible" id="${alertId}">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>${messageLabel ? messageLabel + '!' : ''} </strong> ${message}.
-                        </div>`;
-
-                        $('#alert-container').append(html).ready(() => {
-                            window.setTimeout(() => {
-                                $(`#alert-container #${alertId}`).remove();
-                            }, 5000);
-                        });
-                    }
-                }
-
-                let messageType = '';
-                let messageLabel = '';
-
-                @if ($message = session('success'))
-                    messageType = 'alert-success';
-                    messageLabel = "{{ __('velocity::app.shop.general.alert.success') }}";
-                @elseif ($message = session('warning'))
-                    messageType = 'alert-warning';
-                    messageLabel = "{{ __('velocity::app.shop.general.alert.warning') }}";
-                @elseif ($message = session('error'))
-                    messageType = 'alert-danger';
-                    messageLabel = "{{ __('velocity::app.shop.general.alert.error') }}";
-                @elseif ($message = session('info'))
-                    messageType = 'alert-info';
-                    messageLabel = "{{ __('velocity::app.shop.general.alert.info') }}";
-                @endif
-
-                if (messageType && '{{ $message }}' !== '') {
-                    window.showAlert(messageType, messageLabel, '{{ $message }}');
-                }
-
-                window.serverErrors = [];
-                @if (isset($errors))
-                    @if (count($errors))
-                        window.serverErrors = @json($errors->getMessages());
-                    @endif
-                @endif
-
-                window._translations = @json(app('Webkul\Velocity\Helpers\Helper')->jsonTranslations());
-            })();
-        </script>
-
-        <script
-            type="text/javascript"
-            src="{{ asset('vendor/webkul/ui/assets/js/ui.js') }}">
-        </script>
-
-        @stack('scripts')
+        {{-- all scripts --}}
+        @include('shop::layouts.scripts')
     </body>
 </html>
