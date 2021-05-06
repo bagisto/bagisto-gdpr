@@ -76,7 +76,7 @@ Webkul\GDPR\Providers\GDPRServiceProvider::class
 * Goto composer.json file and add following line under 'psr-4'
 
 ```json
-"Webkul\\GDPR\\": "packages/Webkul/GDPR"
+"Webkul\\GDPR\\": "packages/Webkul/GDPR/src"
 ```
 Now run the following command:
 ```
