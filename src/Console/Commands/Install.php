@@ -39,8 +39,14 @@ class Install extends Command
     public function handle()
     {
         Artisan::call('migrate');
-        Artisan::call('db:seed --class=Webkul\\GDPR\\Database\\Seeders\\GdprTableSeeder');
-        Artisan::call('route:optimize');
-        Artisan::call('vendor:publish --provider="Bagisto\GDPR\Providers\GDPRServiceProvider" --force');
+        Artisan::call('db:seed', [
+            '--class' => "Webkul\\GDPR\\Database\\Seeders\\GdprTableSeeder"
+        ]);
+
+        Artisan::call('optimize');
+        Artisan::call('vendor:publish', [
+            '--provider' => "Webkul\GDPR\Providers\GDPRServiceProvider",
+            '--force'    => true
+        ]);
     }
 }
