@@ -4,13 +4,13 @@ namespace Webkul\GDPR\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Mail;
 use Webkul\GDPR\Http\Controllers\Controller;
+
 use Webkul\GDPR\Repositories\GDPRRepository;
 use Webkul\GDPR\Mail\AdminUpdateDataRequestMail;
 use Webkul\GDPR\Repositories\GDPRDataRequestRepository;
+
 use DB;
-
-
-
+use Artisan;
 
 class AdminController extends Controller
 {
@@ -100,6 +100,8 @@ class AdminController extends Controller
         unset($params['enabled_cookie_notice']);
 
         $data = $this->gdprRepository->update($params, $id);
+         
+        Artisan::call('optimize');
 
         session()->flash('success', trans('gdpr::app.admin.create-gdpr.update-success'));
         return redirect()->route($this->_config['redirect']);
