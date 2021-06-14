@@ -43,12 +43,12 @@
     font-weight: bold;
     margin-top: 14px;
     background: #efe708;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     padding: 15px 24px;
     text-align: center;
     transition: background 0.3s;
 }
-.cookieConsentContainer .cookieButton a:hover { 
+.cookieConsentContainer .cookieButton a:hover {
     cursor: pointer;
     background: #0adfcd;
 }
@@ -115,7 +115,23 @@
                 @section('body-header')
                     @include('shop::layouts.top-nav.index')
 
-                     @include('gdpr::cookie.index')
+                    <?php
+                        $gdprRepository = app('Webkul\GDPR\Repositories\GDPRRepository');
+
+                        $gdpr = $gdprRepository->get();
+
+                        foreach ($gdpr as $value) {
+                            $gdprData = $value;
+                        }
+                        try{
+                            if($gdprData && $gdprData->gdpr_status == 1 && $gdprData->cookie_status == 1){
+                    ?>
+
+                        @include('gdpr::cookie.index')
+                    <?php
+                            }
+                        }catch(\Exception $e){}
+                    ?>
 
                     {!! view_render_event('bagisto.shop.layout.header.before') !!}
 
