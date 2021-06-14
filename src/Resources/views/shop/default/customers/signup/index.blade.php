@@ -84,7 +84,7 @@
                             $gdprData = $value;
                         }
                 try{
-                    if($gdprData && $gdprData->customer_agreement_status == 1){
+                    if($gdprData && $gdprData->gdpr_status == 1 && $gdprData->customer_agreement_status == 1){
             ?>
             
             <div class="control-group" :class="[errors.has('agreement') ? 'has-error' : '']">
