@@ -26,37 +26,14 @@ Bagisto GDPR will help customers to Send Data Requests for Changing name , email
 
 ## 3. Installation:
 
-### Install with composer
-Go to the root folder of **Bagisto** and run the following command:
+Go to the root folder of **Bagisto** and run the following commands:
 
 ```
 composer require bagisto/bagisto-gdpr
 ```
 
-Prepare your database table(s) by the following command:
 ```
-php artisan migrate
-```
-
-Populate the table(s)
-```
-php artisan db:seed --class=Webkul\\GDPR\\Database\\Seeders\\GdprTableSeeder
-```
-
-#### Run these commands below to complete the setup
-
-```
-php artisan route:clear
-```
-
-```
-php artisan config:cache
-```
-
-```
-php artisan vendor:publish
-
--> Press 0 and then press enter to publish all assets and configurations.
+php artisan gdpr:install
 ```
 
 * Enable the GDPR Module from the Admin Panel
@@ -64,57 +41,3 @@ php artisan vendor:publish
 ```
 Admin->Settings->GDPR
 ```
-
-### Install without composer
-* Unzip the respective extension zip and then create a folder named **GDPR**  inside the `packages/Webkul` folder into project root directory.
-* Goto config/app.php file and add following line under 'providers'
-
-```php
-Webkul\GDPR\Providers\GDPRServiceProvider::class
-```
-
-* Goto composer.json file and add following line under 'psr-4'
-
-```json
-"Webkul\\GDPR\\": "packages/Webkul/GDPR/src"
-```
-Now run the following command:
-```
-composer dump-autoload
-```
-
-Prepare your database table(s) by the following command:
-```
-php artisan migrate
-```
-
-Populate the table(s)
-```
-php artisan db:seed --class=Webkul\\GDPR\\Database\\Seeders\\GdprTableSeeder
-```
-
-#### Run these commands below to complete the setup
-
-```
-php artisan route:clear
-```
-
-```
-php artisan config:cache
-```
-
-```
-php artisan vendor:publish
-
--> Press 0 and then press enter to publish all assets and configurations.
-```
-
-* Enable the GDPR Module from the Admin Panel
- 
-```
-Admin->Settings->GDPR
-```
-
-
-
-> That's it, now just execute the project on your specified domain.
