@@ -147,25 +147,32 @@
                             $gdprData = $value;
                         }
                         try{
-                            if($gdprData && $gdprData->customer_agreement_status == 1){
+                            if($gdprData && $gdprData->gdpr_status == 1 && $gdprData->customer_agreement_status == 1){
                         ?>
-            
+
                         <div class="control-group" :class="[errors.has('agreement') ? 'has-error' : '']">
 
                             <input type="checkbox" id="checkbox2" name="agreement" v-validate="'required'" data-vv-as="&quot;{{ __('shop::app.customer.signup-form.agreement') }}&quot;">
                             <label class="required label-style" style="position: absolute; margin-left: 0px;">
-                                <a href="#" @click="myFunction">{{ $gdprData->agreement_label }}</a>              
+                                <a href="#" @click="myFunction">{{ $gdprData->agreement_label }}</a>
                             </label>
                             <span class="control-error" style="position: absolute; margin-top: 20px;" v-if="errors.has('agreement')">@{{ errors.first('agreement') }}</span>
-                        </div> 
-                        
+                        </div>
+
                         <!-- Modal -->
                         <modal-view></modal-view>
-                    
+
                         <?php
                             }
                         }catch(\Exception $e){}
                         ?>
+                        
+                        @if (core()->getConfigData('customer.settings.newsletter.subscription'))
+                            <div class="control-group">
+                                <input type="checkbox" id="checkbox2" name="is_subscribed">
+                                <span>{{ __('shop::app.customer.signup-form.subscribe-to-newsletter') }}</span>
+                            </div>
+                        @endif
 
                         {!! view_render_event('bagisto.shop.customers.signup_form_controls.after') !!}
 
@@ -186,24 +193,24 @@
 <template>
     <div class="modal-parent scrollable" style="display:none" id="modal_view">
         <div class="modal-container">
-            
+
             <div id="close-button">
                     <button id="x" style="float: right; margin-top: 10px; margin-right: 15px; font-size: 1.5rem; border: none; background-color: white;" @click="closeModal">X</button>
             </div>
-            
+
             <div class="modal-header">
                 <slot name="header">
                     Terms & Conditions
                 </slot>
             </div>
-        
+
             <div class="modal-body">
                 <slot name="body">
                 @php
                     try{
                         if($gdprData && $gdprData->customer_agreement_status == 1){
                 @endphp
-                
+
                     {!! $gdprData->agreement_content !!}
 
                 @php
@@ -224,7 +231,7 @@
                 'template': '#modalView',
 
                 props: ['id', 'isOpen'],
-                
+
                 data: function () {
                     return {
                     }
@@ -238,7 +245,7 @@
                     }
                 },
                 methods: {
-                   
+
                         addClassToBody: function () {
                         var body = document.querySelector("body");
 
@@ -249,7 +256,7 @@
                             }
                         }
                 }
-                    
+
             })
         })()
     </script>
@@ -265,7 +272,7 @@
         var x = document.getElementById("modal_view");
         if (x.style.display === "none") {
             x.style.display = "block";
-        } 
+        }
     }
 
 
