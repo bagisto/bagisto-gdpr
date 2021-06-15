@@ -7,50 +7,53 @@
     min-height: 20px;
     box-sizing: border-box;
     padding: 30px 30px 30px 30px;
-    background: #181fea80;
+    background: rgba(0, 0, 0, 0.91) !important;
     overflow: hidden;
     position: fixed;
     bottom: 30px;
     right: 30px;
     display: none;
 }
-.cookieConsentContainer .cookieTitle a {
+
+.cookieConsentContainer .cookieTitle a, .cookieConsentContainer .cookieTitle a:hover {
     font-family: OpenSans, arial, "sans-serif";
-    color: #23e211;
+    color: #ffff;
     font-size: 22px;
     line-height: 20px;
     display: block;
 }
+
 .cookieConsentContainer .cookieDesc p {
     margin: 0;
     padding: 0;
     font-family: OpenSans, arial, "sans-serif";
-    color: #FFFFFF;
-    font-size: 13px;
+    color: #ffff;
+    font-size: 14px;
     line-height: 20px;
     display: block;
     margin-top: 10px;
 } .cookieConsentContainer .cookieDesc a {
     font-family: OpenSans, arial, "sans-serif";
-    color: #FFFFFF;
+    color: #ffff;
     text-decoration: underline;
 }
 .cookieConsentContainer .cookieButton a {
     display: inline-block;
     font-family: OpenSans, arial, "sans-serif";
-    color: #FFFFFF;
+    color: #ffff;
     font-size: 14px;
     font-weight: bold;
     margin-top: 14px;
-    background: #efe708;
-    box-sizing: border-box; 
+    background: #26a37c;
+    box-sizing: border-box;
     padding: 15px 24px;
     text-align: center;
     transition: background 0.3s;
 }
-.cookieConsentContainer .cookieButton a:hover { 
+.cookieConsentContainer .cookieButton a:hover {
     cursor: pointer;
-    background: #0adfcd;
+    background: #21916e;
+    color: #ffff;
 }
 
 @media (max-width: 980px) {
@@ -61,10 +64,8 @@
         width: 300px !important;
     }
 }
-
 </style>
 @endpush
-
 
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
