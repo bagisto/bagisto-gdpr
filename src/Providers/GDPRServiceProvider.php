@@ -1,14 +1,18 @@
 <?php
+
 namespace Webkul\GDPR\Providers;
 
 use Webkul\Core\Tree;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Event;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
-    class GDPRServiceProvider extends ServiceProvider
+use Webkul\GDPR\Console\Commands\Install;
+
+class GDPRServiceProvider extends ServiceProvider
     {
         /**
         * Bootstrap services.
@@ -46,6 +50,12 @@ use Illuminate\Support\ServiceProvider;
             ]);
 
             $this->app->register(RepositoryServiceProvider::class);
+
+            if ($this->app->runningInConsole()) {
+                $this->commands([
+                    Install::class,
+                ]);
+            }
         }
 
         /**
@@ -61,7 +71,7 @@ use Illuminate\Support\ServiceProvider;
         protected function registerConfig()
         {
             try{
-                    $gdpr = DB::table('gdpr')->select('gdpr_status')->get(); 
+                    $gdpr = DB::table('gdpr')->select('gdpr_status')->get();
                     if($gdpr['0']->gdpr_status == 1)
                     {
                         $this->mergeConfigFrom(
@@ -71,14 +81,14 @@ use Illuminate\Support\ServiceProvider;
                         $this->mergeConfigFrom(
                             dirname(__DIR__) . '/Config/admin-menu.php', 'menu.admin'
                         );
-                    }  
+                    }
             }catch (\Exception $e){
 
                 $this->mergeConfigFrom(
                     dirname(__DIR__) . '/Config/admin-menu.php', 'menu.admin'
                 );
-                
-            }  
-            
+
+            }
+
         }
     }
