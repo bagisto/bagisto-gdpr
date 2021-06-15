@@ -119,6 +119,13 @@
                 }
             }catch(\Exception $e){}
             ?>
+            
+            @if (core()->getConfigData('customer.settings.newsletter.subscription'))
+                <div class="control-group">
+                    <input type="checkbox" id="checkbox2" name="is_subscribed">
+                    <span>{{ __('shop::app.customer.signup-form.subscribe-to-newsletter') }}</span>
+                </div>
+            @endif
                 
             <button class="btn btn-primary btn-lg" type="submit">
                 {{ __('shop::app.customer.signup-form.button_title') }}
