@@ -51,18 +51,16 @@
                                         </span>
                                         <div class="horizontal-rule"></div>
                                     </div>
+                                    
                                     <div class="control-group">
-                                        <a href="{{ route('gdpr.customers.pdfview',['download'=>'pdf']) }}">
-                                            <label class="btn btn-lg btn-primary" style="display: inline-block; width: auto;">
-                                                {{ __('gdpr::app.shop.customer-gdpr-data-request.get-pdf') }}
-                                            </label>
+                                        <a href="{{ route('gdpr.customers.pdfview',['download'=>'pdf']) }}" class="btn btn-lg btn-primary">
+                                            {{ __('gdpr::app.shop.customer-gdpr-data-request.get-pdf') }}
                                         </a>
                                     </div>
+
                                     <div class="control-group">
-                                        <a href="{{ route('gdpr.customers.htmlview') }}" target="_blank">
-                                            <label class="btn btn-lg btn-primary" style="display: inline-block; width: auto;">
-                                                {{ __('gdpr::app.shop.customer-gdpr-data-request.get-html') }}
-                                            </label>
+                                        <a href="{{ route('gdpr.customers.htmlview') }}" target="_blank" class="btn btn-lg btn-primary">
+                                            {{ __('gdpr::app.shop.customer-gdpr-data-request.get-html') }}
                                         </a>
                                     </div>
                                 </div>
