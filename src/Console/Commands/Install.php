@@ -48,6 +48,6 @@ class Install extends Command
         Artisan::call('vendor:publish', [
             '--provider' => "Webkul\GDPR\Providers\GDPRServiceProvider",
             '--force'    => true
-        ]);
+        ], $this->getOutput());
     }
 }
