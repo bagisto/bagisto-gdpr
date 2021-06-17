@@ -38,15 +38,16 @@ class Install extends Command
      */
     public function handle()
     {
-        Artisan::call('migrate');
+        Artisan::call('migrate', [], $this->getOutput());
+
         Artisan::call('db:seed', [
             '--class' => "Webkul\\GDPR\\Database\\Seeders\\GdprTableSeeder"
-        ]);
+        ], $this->getOutput());
 
-        Artisan::call('optimize');
+        Artisan::call('optimize', [], $this->getOutput());
         Artisan::call('vendor:publish', [
             '--provider' => "Webkul\GDPR\Providers\GDPRServiceProvider",
             '--force'    => true
-        ]);
+        ], $this->getOutput());
     }
 }
