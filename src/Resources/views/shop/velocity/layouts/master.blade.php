@@ -116,7 +116,23 @@
                 @section('body-header')
                     @include('shop::layouts.top-nav.index')
 
-                     @include('gdpr::cookie.index')
+                    <?php
+                        $gdprRepository = app('Webkul\GDPR\Repositories\GDPRRepository');
+
+                        $gdpr = $gdprRepository->get();
+
+                        foreach ($gdpr as $value) {
+                            $gdprData = $value;
+                        }
+                        try{
+                            if($gdprData && $gdprData->gdpr_status == 1 && $gdprData->cookie_status == 1){
+                    ?>
+
+                        @include('gdpr::cookie.index')
+                    <?php
+                            }
+                        }catch(\Exception $e){}
+                    ?>
 
                     {!! view_render_event('bagisto.shop.layout.header.before') !!}
 
