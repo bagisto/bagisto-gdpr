@@ -76,26 +76,14 @@ return [
             'message' => 'Message',
             'thank-you' => 'Thank you',
             'status-of-request' => 'Status Of Request',
+            'new-request-for-data-delete' => 'New Request For Data Delete',
+            'new-request-for-data-update' => 'New Request For Data Update',
         ],
         'customer-data-table-heading' => [
             'product-name' => 'Product Name',
             'sku' => 'Sku',
             'qty' => 'Qty',
             'reason' => 'Reason',
-        ],
-        'customer-conversation' => [
-            'heading' => 'Hello :name,',
-            'quotes' => 'There is a new message from Buyer',
-        ],
-        'seller-conversation' => [
-            'heading' => 'Hello :name',
-            'quotes' => 'There is a new message from Seller',
-        ],
-        'status' => [
-            'heading' => 'Hello :name',
-            'quotes' => 'Your RMA status has been changed by Seller',
-            'rma-id' => 'RMA Id',
-            'your-rma-id' => ':id status has been changed by Seller'
         ],
     ],
 

@@ -26,7 +26,7 @@ class DataUpdateRequestMail extends Mailable
     public function build()
     {
         return $this->to($this->dataUpdateRequest['email'])
-            ->subject('New Request For Data Update')
+            ->subject(trans('gdpr::app.mail.new-data-request.new-request-for-data-update'))
             ->view('gdpr::emails.customers.new-data-update-request')->with($this->dataUpdateRequest);
     }
 }

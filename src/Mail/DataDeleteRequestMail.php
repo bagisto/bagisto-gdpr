@@ -25,7 +25,7 @@ class DataDeleteRequestMail extends Mailable
     public function build()
     {
         return $this->to($this->dataDeleteRequest['email'])
-            ->subject('New Request For Data Delete')
+            ->subject(trans('gdpr::app.mail.new-data-request.new-request-for-data-delete'))
             ->view('gdpr::emails.customers.new-data-delete-request')->with($this->dataDeleteRequest);
     }
 }
