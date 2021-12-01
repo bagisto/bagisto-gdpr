@@ -8,6 +8,7 @@ use Webkul\GDPR\Contracts\GDPR as GDPRContract;
 class GDPR extends Model implements GDPRContract
 {
     protected $table = 'gdpr';
+
     protected $fillable = [
         'gdpr_status',
         'customer_agreement_status',
@@ -21,5 +22,4 @@ class GDPR extends Model implements GDPRContract
         'request_status_update_template',
         'request_status_delete_template'  
     ];
-
 }

@@ -1,10 +1,11 @@
-const mix = require("laravel-mix");
-require("laravel-mix-merge-manifest");
+const { mix } = require('laravel-mix');
+
+require('laravel-mix-merge-manifest');
+
+let publicPath = '../../../public/vendor/webkul/gdpr/assets';
 
 if (mix.inProduction()) {
-  var publicPath = "publishable/assets";
-} else {
-  var publicPath = "../../../public/vendor/webkul/gdpr/assets";
+    publicPath = 'publishable/assets';
 }
 
 mix.setPublicPath(publicPath).mergeManifest();
@@ -12,11 +13,18 @@ mix.setPublicPath(publicPath).mergeManifest();
 mix.disableNotifications();
 
 mix
-  .sass(__dirname + "/src/Resources/assets/sass/app.scss", "css/gdpr.css")
-  .options({
-    processCssUrls: false
-  });
+    .sass(
+        __dirname + '/src/Resources/assets/sass/gdpr.scss',
+        __dirname + '/' + publicPath + '/css/gdpr.css',
+        {
+            includePaths: ['node_modules/bootstrap-sass/assets/stylesheets/']
+        }
+    )
+
+    .options({
+        processCssUrls: false
+    });
 
 if (mix.inProduction()) {
-  mix.version();
+    mix.version();
 }

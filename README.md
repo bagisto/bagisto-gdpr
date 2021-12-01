@@ -15,6 +15,7 @@ Bagisto GDPR will help customers to Send Data Requests for Changing name , email
 * Admin can Enable/Disable GDPR Module.
 * Admin can Enable/Disable Customer Agreement in GDPR Module.
 * Admin can Enable/Disable Cookie Management in GDPR Module.
+* Admin can Enable/Disable Cookie Management in GDPR Module.
 * Admin can see the list of all Data Request.
 * Admin can solve the Data Request and can change the status of the request.
 

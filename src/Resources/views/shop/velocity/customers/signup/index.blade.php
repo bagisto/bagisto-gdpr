@@ -53,9 +53,7 @@
                                 value="{{ old('first_name') }}"
                                 data-vv-as="&quot;{{ __('shop::app.customer.signup-form.firstname') }}&quot;" />
 
-                            <span class="control-error" v-if="errors.has('first_name')">
-                                @{{ errors.first('first_name') }}
-                            </span>
+                            <span class="control-error" v-if="errors.has('first_name')" v-text="errors.first('first_name')"></span>
                         </div>
 
                         {!! view_render_event('bagisto.shop.customers.signup_form_controls.firstname.after') !!}
@@ -73,9 +71,7 @@
                                 value="{{ old('last_name') }}"
                                 data-vv-as="&quot;{{ __('shop::app.customer.signup-form.lastname') }}&quot;" />
 
-                            <span class="control-error" v-if="errors.has('last_name')">
-                                @{{ errors.first('last_name') }}
-                            </span>
+                            <span class="control-error" v-if="errors.has('last_name')" v-text="errors.first('last_name')"></span>
                         </div>
 
                         {!! view_render_event('bagisto.shop.customers.signup_form_controls.lastname.after') !!}
@@ -93,9 +89,7 @@
                                 value="{{ old('email') }}"
                                 data-vv-as="&quot;{{ __('shop::app.customer.signup-form.email') }}&quot;" />
 
-                            <span class="control-error" v-if="errors.has('email')">
-                                @{{ errors.first('email') }}
-                            </span>
+                            <span class="control-error" v-if="errors.has('email')" v-text="errors.first('email')"></span>
                         </div>
 
                         {!! view_render_event('bagisto.shop.customers.signup_form_controls.email.after') !!}
@@ -114,9 +108,7 @@
                                 value="{{ old('password') }}"
                                 data-vv-as="&quot;{{ __('shop::app.customer.signup-form.password') }}&quot;" />
 
-                            <span class="control-error" v-if="errors.has('password')">
-                                @{{ errors.first('password') }}
-                            </span>
+                            <span class="control-error" v-if="errors.has('password')" v-text="errors.first('password')"></span>
                         </div>
 
                         {!! view_render_event('bagisto.shop.customers.signup_form_controls.password.after') !!}
@@ -133,40 +125,36 @@
                                 v-validate="'required|min:6|confirmed:password'"
                                 data-vv-as="&quot;{{ __('shop::app.customer.signup-form.confirm_pass') }}&quot;" />
 
-                            <span class="control-error" v-if="errors.has('password_confirmation')">
-                                @{{ errors.first('password_confirmation') }}
-                            </span>
+                            <span class="control-error" v-if="errors.has('password_confirmation')" v-text="errors.first('password_confirmation')"></span>
                         </div>
 
-                        <?php
-                        $gdprRepository = app('Webkul\GDPR\Repositories\GDPRRepository');
+                        {!! view_render_event('bagisto.shop.customers.signup_form_controls.password_confirmation.after') !!}
 
-                        $gdpr = $gdprRepository->get();
-
-                        foreach ($gdpr as $value) {
-                            $gdprData = $value;
-                        }
-                        try{
-                            if($gdprData && $gdprData->gdpr_status == 1 && $gdprData->customer_agreement_status == 1){
-                        ?>
-
-                        <div class="control-group" :class="[errors.has('agreement') ? 'has-error' : '']">
-
-                            <input type="checkbox" id="checkbox2" name="agreement" v-validate="'required'" data-vv-as="&quot;{{ __('shop::app.customer.signup-form.agreement') }}&quot;">
-                            <label class="required label-style" style="position: absolute; margin-left: 0px;">
-                                <a href="#" @click="myFunction">{{ $gdprData->agreement_label }}</a>
-                            </label>
-                            <span class="control-error" style="position: absolute; margin-top: 20px;" v-if="errors.has('agreement')">@{{ errors.first('agreement') }}</span>
-                        </div>
-
-                        <!-- Modal -->
-                        <modal-view></modal-view>
-
-                        <?php
-                            }
-                        }catch(\Exception $e){}
-                        ?>
+                        @php
+                            $gdpr = app('Webkul\GDPR\Repositories\GDPRRepository')->first();   
+                        @endphp
                         
+                        @if($gdpr->gdpr_status == 1 && $gdpr->customer_agreement_status == 1)
+                        
+                            <div class="control-group" :class="[errors.has('agreement') ? 'has-error' : '']">
+                                <input type="checkbox" id="checkbox2" name="agreement" v-validate="'required'" data-vv-as="&quot;{{ __('shop::app.customer.signup-form.agreement') }}&quot;">
+                                <label class="required label-style" style="position: absolute; margin-left: 0px;">
+                                    <a href="#" @click="myFunction">{{ $gdpr->agreement_label }}</a>
+                                </label>
+                                <span class="control-error" style="position: absolute; margin-top: 20px;" v-if="errors.has('agreement')">@{{ errors.first('agreement') }}</span>
+                            </div>
+
+                            <!-- Modal -->
+                            <modal-view></modal-view>
+
+                        @endif
+
+                        <div class="control-group">
+
+                            {!! Captcha::render() !!}
+
+                        </div>
+
                         @if (core()->getConfigData('customer.settings.newsletter.subscription'))
                             <div class="control-group">
                                 <input type="checkbox" id="checkbox2" name="is_subscribed">
@@ -189,93 +177,89 @@
 @endsection
 
 @push('scripts')
+
+{!! Captcha::renderJS() !!}
+
+@endpush
+
+
+@push('scripts')
+
 <script type="text/x-template" id="modalView">
-<template>
-    <div class="modal-parent scrollable" style="display:none" id="modal_view">
-        <div class="modal-container">
-
-            <div id="close-button">
-                    <button id="x" style="float: right; margin-top: 10px; margin-right: 15px; font-size: 1.5rem; border: none; background-color: white;" @click="closeModal">X</button>
-            </div>
-
-            <div class="modal-header">
-                <slot name="header">
-                    Terms & Conditions
-                </slot>
-            </div>
-
-            <div class="modal-body">
-                <slot name="body">
-                @php
-                    try{
-                        if($gdprData && $gdprData->customer_agreement_status == 1){
-                @endphp
-
-                    {!! $gdprData->agreement_content !!}
-
-                @php
-                            }
-                        }catch(\Exception $e){}
-                @endphp
-
-                </slot>
+    <template>
+        <div class="modal-parent scrollable" style="display:none" id="modal_view">
+            <div class="modal-container">
+                <div id="close-button">
+                        <button id="x" class="modal-btn" @click="closeModal">X</button>
+                </div>
+                <div class="modal-header">
+                    <slot name="header">
+                        Terms & Conditions
+                    </slot>
+                </div>
+                <div class="modal-body">
+                    <slot name="body">
+                        @php
+                            try {
+                                    if($gdpr && $gdpr->customer_agreement_status == 1) {
+                        @endphp
+                                        {!! $gdpr->agreement_content !!}
+                        @php
+                                    }
+                                } catch(\Exception $e) {}
+                        @endphp
+                    </slot>
+                </div>
             </div>
         </div>
-    </div>
-</template>
+    </template>
 </script>
 
 <script type="text/javascript">
-        (() => {
-            Vue.component('modal-view', {
-                'template': '#modalView',
-
-                props: ['id', 'isOpen'],
-
-                data: function () {
-                    return {
-                    }
-                },
-
-                computed: {
-                    isModalOpen: function () {
-                    this.addClassToBody();
-
-                    return this.isOpen;
-                    }
-                },
-                methods: {
-
-                        addClassToBody: function () {
-                        var body = document.querySelector("body");
-
-                            if(this.isOpen) {
-                                body.classList.add("modal-open");
-                            } else {
-                                body.classList.remove("modal-open");
-                            }
-                        }
+    (() => {
+        Vue.component('modal-view', {
+            'template': '#modalView',
+            props: ['id', 'isOpen'],
+            data: function () {
+                return {
                 }
+            },
+            computed: {
+                isModalOpen: function () {
+                this.addClassToBody();
+                return this.isOpen;
+                }
+            },
+            methods: {
+                    addClassToBody: function () {
+                    var body = document.querySelector("body");
+                        if(this.isOpen) {
+                            body.classList.add("modal-open");
+                        } else {
+                            body.classList.remove("modal-open");
+                        }
+                    }
+            }
+        })
+    })()
+</script>
 
-            })
-        })()
-    </script>
-
-    <script>
+<script>
 
     function closeModal() {
+
         document.getElementById("modal_view").style.display = "none";
     }
 
-
     function myFunction() {
+
         var x = document.getElementById("modal_view");
+        
         if (x.style.display === "none") {
             x.style.display = "block";
         }
     }
 
+</script>
 
-    </script>
-
-    @endpush
+@endpush
