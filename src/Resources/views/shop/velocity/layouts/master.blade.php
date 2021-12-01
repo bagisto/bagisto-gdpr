@@ -1,72 +1,3 @@
-@push('css')
-<style type="text/css">
-
-.cookieConsentContainer {
-    z-index: 999;
-    width: 350px;
-    min-height: 20px;
-    box-sizing: border-box;
-    padding: 30px 30px 30px 30px;
-    background: rgba(0, 0, 0, 0.91) !important;
-    overflow: hidden;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    display: none;
-}
-
-.cookieConsentContainer .cookieTitle a, .cookieConsentContainer .cookieTitle a:hover {
-    font-family: OpenSans, arial, "sans-serif";
-    color: #ffff;
-    font-size: 22px;
-    line-height: 20px;
-    display: block;
-}
-
-.cookieConsentContainer .cookieDesc p {
-    margin: 0;
-    padding: 0;
-    font-family: OpenSans, arial, "sans-serif";
-    color: #ffff;
-    font-size: 14px;
-    line-height: 20px;
-    display: block;
-    margin-top: 10px;
-} .cookieConsentContainer .cookieDesc a {
-    font-family: OpenSans, arial, "sans-serif";
-    color: #ffff;
-    text-decoration: underline;
-}
-.cookieConsentContainer .cookieButton a {
-    display: inline-block;
-    font-family: OpenSans, arial, "sans-serif";
-    color: #ffff;
-    font-size: 14px;
-    font-weight: bold;
-    margin-top: 14px;
-    background: #26a37c;
-    box-sizing: border-box;
-    padding: 15px 24px;
-    text-align: center;
-    transition: background 0.3s;
-}
-.cookieConsentContainer .cookieButton a:hover {
-    cursor: pointer;
-    background: #21916e;
-    color: #ffff;
-}
-
-@media (max-width: 980px) {
-    .cookieConsentContainer {
-        bottom: 60px !important;
-        left: 30px !important;
-        height: 200px !important;
-        width: 300px !important;
-    }
-}
-</style>
-@endpush
-
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 
@@ -77,8 +8,9 @@
         {{-- meta data --}}
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta http-equiv="content-language" content="{{ app()->getLocale() }}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="base-url" content="{{ url()->to('/') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         {!! view_render_event('bagisto.shop.layout.head') !!}
@@ -87,9 +19,7 @@
         @yield('head')
 
         {{-- seo meta data --}}
-        @section('seo')
-            <meta name="description" content="{{ core()->getCurrentChannel()->description }}"/>
-        @show
+        @yield('seo')
 
         {{-- fav icon --}}
         @if ($favicon = core()->getCurrentChannel()->favicon_url)
@@ -105,8 +35,6 @@
     <body @if (core()->getCurrentLocale() && core()->getCurrentLocale()->direction == 'rtl') class="rtl" @endif>
         {!! view_render_event('bagisto.shop.layout.body.before') !!}
 
-        @include('shop::UI.particals')
-
         {{-- main app --}}
         <div id="app">
             <product-quick-view v-if="$root.quickView"></product-quick-view>
@@ -114,43 +42,45 @@
             <div class="main-container-wrapper">
 
                 @section('body-header')
+                    {{-- top nav which contains currency, locale and login header --}}
                     @include('shop::layouts.top-nav.index')
 
-                    <?php
-                        $gdprRepository = app('Webkul\GDPR\Repositories\GDPRRepository');
+                    @php
+                        $gdpr = app('Webkul\GDPR\Repositories\GDPRRepository')->first();
 
-                        $gdpr = $gdprRepository->get();
+                        try { 
+                    @endphp
 
-                        foreach ($gdpr as $value) {
-                            $gdprData = $value;
-                        }
-                        try{
-                            if($gdprData && $gdprData->gdpr_status == 1 && $gdprData->cookie_status == 1){
-                    ?>
-
+                    @if($gdpr && $gdpr->gdpr_status == 1 && $gdpr->cookie_status == 1)
                         @include('gdpr::cookie.index')
-                    <?php
-                            }
-                        }catch(\Exception $e){}
-                    ?>
+                    @endif
+                    
+                    @php
+                            
+                        } catch(\Exception $e) {}
+                    @endphp
 
                     {!! view_render_event('bagisto.shop.layout.header.before') !!}
 
+                        {{-- primary header after top nav --}}
                         @include('shop::layouts.header.index')
 
                     {!! view_render_event('bagisto.shop.layout.header.after') !!}
 
                     <div class="main-content-wrapper col-12 no-padding">
-                        @php
-                            $velocityContent = app('Webkul\Velocity\Repositories\ContentRepository')->getAllContents();
-                        @endphp
 
-                        <content-header
-                            url="{{ url()->to('/') }}"
-                            :header-content="{{ json_encode($velocityContent) }}"
-                            heading= "{{ __('velocity::app.menu-navbar.text-category') }}"
-                            category-count="{{ $velocityMetaData ? $velocityMetaData->sidebar_category_count : 10 }}"
-                        ></content-header>
+                        {{-- secondary header --}}
+                        <header class="row velocity-divide-page vc-header header-shadow active">
+
+                            {{-- mobile header --}}
+                            <div class="vc-small-screen container">
+                                @include('velocity::shop.layouts.header.mobile')
+                            </div>
+
+                            {{-- desktop header --}}
+                            @include('velocity::shop.layouts.header.desktop')
+
+                        </header>
 
                         <div class="">
                             <div class="row col-12 remove-padding-margin">
@@ -162,18 +92,14 @@
                                     add-class="category-list-container pt10">
                                 </sidebar-component>
 
-                                <div
-                                    class="col-12 no-padding content" id="home-right-bar-container">
-
+                                <div class="col-12 no-padding content" id="home-right-bar-container">
                                     <div class="container-right row no-margin col-12 no-padding">
-
                                         {!! view_render_event('bagisto.shop.layout.content.before') !!}
 
-                                        @yield('content-wrapper')
+                                            @yield('content-wrapper')
 
                                         {!! view_render_event('bagisto.shop.layout.content.after') !!}
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -181,19 +107,16 @@
                 @show
 
                 <div class="container">
-
                     {!! view_render_event('bagisto.shop.layout.full-content.before') !!}
 
                         @yield('full-content-wrapper')
 
                     {!! view_render_event('bagisto.shop.layout.full-content.after') !!}
-
                 </div>
             </div>
 
-            <div class="modal-parent" id="loader" style="top: 0" v-show="showPageLoader">
-                <overlay-loader :is-open="true"></overlay-loader>
-            </div>
+            {{-- overlay loader --}}
+            <velocity-overlay-loader></velocity-overlay-loader>
         </div>
 
         {{-- footer --}}
@@ -207,6 +130,7 @@
 
         {!! view_render_event('bagisto.shop.layout.body.after') !!}
 
+        {{-- alert container --}}
         <div id="alert-container"></div>
 
         {{-- all scripts --}}

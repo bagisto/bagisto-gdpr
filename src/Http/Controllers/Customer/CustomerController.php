@@ -9,7 +9,6 @@ use Webkul\GDPR\Mail\DataUpdateRequestMail;
 use Webkul\GDPR\Mail\DataDeleteRequestMail;
 use Webkul\Sales\Repositories\OrderRepository;
 use Webkul\GDPR\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use PDF;
 use DB;
 

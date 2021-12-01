@@ -1,8 +1,14 @@
 <div class="customer-sidebar row no-margin no-padding">
     <div class="account-details col-12">
-        <div class="customer-name col-12 text-uppercase">
-            {{ substr(auth('customer')->user()->first_name, 0, 1) }}
-        </div>
+        @if (auth('customer')->user()->image)
+            <div>
+                <img style="width:80px;height:80px;border-radius:50%;" src="{{ auth('customer')->user()->image_url }}" alt="{{ auth('customer')->user()->first_name }}"/>
+            </div>
+        @else
+            <div class="customer-name col-12 text-uppercase">
+                {{ substr(auth('customer')->user()->first_name, 0, 1) }}
+            </div>
+        @endif
         <div class="col-12 customer-name-text text-capitalize text-break">{{ auth('customer')->user()->first_name . ' ' . auth('customer')->user()->last_name}}</div>
         <div class="customer-email col-12 text-break">{{ auth('customer')->user()->email }}</div>
     </div>
@@ -13,12 +19,23 @@
             @php
                 $subMenuCollection = [];
 
+                $showCompare = core()->getConfigData('general.content.shop.compare_option') == "1" ? true : false;
+
+                $showWishlist = core()->getConfigData('general.content.shop.wishlist_option') == "1" ? true : false;
+
                 try {
                     $subMenuCollection['profile'] = $menuItem['children']['profile'];
                     $subMenuCollection['orders'] = $menuItem['children']['orders'];
                     $subMenuCollection['downloadables'] = $menuItem['children']['downloadables'];
-                    $subMenuCollection['wishlist'] = $menuItem['children']['wishlist'];
-                    $subMenuCollection['compare'] = $menuItem['children']['compare'];
+
+                    if ($showWishlist) {
+                        $subMenuCollection['wishlist'] = $menuItem['children']['wishlist'];
+                    }
+
+                    if ($showCompare) {
+                        $subMenuCollection['compare'] = $menuItem['children']['compare'];
+                    }
+
                     $subMenuCollection['reviews'] = $menuItem['children']['reviews'];
                     $subMenuCollection['address'] = $menuItem['children']['address'];
 
@@ -38,6 +55,12 @@
                 } catch (\Exception $exception) {
                     $subMenuCollection = $menuItem['children'];
                 }
+
+                $gdpr = app('Webkul\GDPR\Repositories\GDPRRepository')->first();
+                  
+                if($gdpr && $gdpr->gdpr_status == 0) {
+                    unset($subMenuCollection['gdpr']);
+                }  
             @endphp
 
             @foreach ($subMenuCollection as $index => $subMenuItem)
@@ -45,7 +68,7 @@
                     <a class="unset fw6 full-width" href="{{ $subMenuItem['url'] }}">
                         <i class="icon {{ $index }} text-down-3"></i>
                         <span>{{ trans($subMenuItem['name']) }}<span>
-                        <i class="rango-arrow-right pull-right text-down-3"></i>
+                        <i class="rango-arrow-right float-right text-down-3"></i>
                     </a>
                 </li>
             @endforeach

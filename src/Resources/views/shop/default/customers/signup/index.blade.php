@@ -3,9 +3,6 @@
     {{ __('shop::app.customer.signup-form.page-title') }}
 @endsection
 @section('content-wrapper')
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <div class="auth-content">
 
@@ -62,6 +59,27 @@
                 <span class="control-error" v-if="errors.has('password_confirmation')">@{{ errors.first('password_confirmation') }}</span>
             </div>
 
+            {!! view_render_event('bagisto.shop.customers.signup_form_controls.password_confirmation.after') !!}
+            
+            @php
+                $gdpr = app('Webkul\GDPR\Repositories\GDPRRepository')->first();   
+            @endphp
+                        
+            @if($gdpr->gdpr_status == 1 && $gdpr->customer_agreement_status == 1)
+                        
+                <div class="control-group" :class="[errors.has('agreement') ? 'has-error' : '']">
+                    <input type="checkbox" id="checkbox2" name="agreement" v-validate="'required'" data-vv-as="&quot;{{ __('shop::app.customer.signup-form.agreement') }}&quot;">
+                    <label class="required">
+                        <a href="#" @click="myFunction">{{ $gdpr->agreement_label }}</a>
+                    </label>
+                    <span class="control-error" v-if="errors.has('agreement')">@{{ errors.first('agreement') }}</span>
+                </div>
+
+                <!-- Modal -->
+                <modal-view></modal-view>
+
+            @endif
+
             {{-- <div class="signup-confirm" :class="[errors.has('agreement') ? 'has-error' : '']">
                 <span class="checkbox">
                     <input type="checkbox" id="checkbox2" name="agreement" v-validate="'required'">
@@ -73,60 +91,27 @@
                 <span class="control-error" v-if="errors.has('agreement')">@{{ errors.first('agreement') }}</span>
             </div> --}}
 
-            {!! view_render_event('bagisto.shop.customers.signup_form_controls.after') !!}
-          
-            <?php
-            $gdprRepository = app('Webkul\GDPR\Repositories\GDPRRepository');
+            {{-- <span class="checkbox">
+                <input type="checkbox" id="checkbox1" name="checkbox[]">
+                <label class="checkbox-view" for="checkbox1"></label>
+                Checkbox Value 1
+            </span> --}}
 
-                        $gdpr = $gdprRepository->get();
+            <div class="control-group">
 
-                        foreach ($gdpr as $value) {
-                            $gdprData = $value;
-                        }
-                try{
-                    if($gdprData && $gdprData->gdpr_status == 1 && $gdprData->customer_agreement_status == 1){
-            ?>
-            
-            <div class="control-group" :class="[errors.has('agreement') ? 'has-error' : '']">
+                {!! Captcha::render() !!}
 
-                <input type="checkbox" id="checkbox2" name="agreement" v-validate="'required'" data-vv-as="&quot;{{ __('shop::app.customer.signup-form.agreement') }}&quot;">
-                <label class="required">
-                    <a href="#" data-toggle="modal" data-target="#termsCondition">{{ $gdprData->agreement_label }}</a>              
-                </label>
-                <span class="control-error" v-if="errors.has('agreement')">@{{ errors.first('agreement') }}</span>
-            </div> 
-
-            <!-- Modal -->
-            <div class="modal fade" id="termsCondition" role="dialog">
-                <div class="modal-dialog">
-                 <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Terms & Conditions</h4>
-                        </div>
-                        <div class="modal-body">
-                            {!! $gdprData->agreement_content !!}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
             </div>
-                    
-            <?php
-                }
-            }catch(\Exception $e){}
-            ?>
-            
+
             @if (core()->getConfigData('customer.settings.newsletter.subscription'))
                 <div class="control-group">
                     <input type="checkbox" id="checkbox2" name="is_subscribed">
                     <span>{{ __('shop::app.customer.signup-form.subscribe-to-newsletter') }}</span>
                 </div>
             @endif
-                
+
+            {!! view_render_event('bagisto.shop.customers.signup_form_controls.after') !!}
+
             <button class="btn btn-primary btn-lg" type="submit">
                 {{ __('shop::app.customer.signup-form.button_title') }}
             </button>
@@ -137,3 +122,91 @@
     {!! view_render_event('bagisto.shop.customers.signup.after') !!}
 </div>
 @endsection
+
+@push('scripts')
+
+{!! Captcha::renderJS() !!}
+
+@endpush
+
+
+@push('scripts')
+
+<script type="text/x-template" id="modalView">
+    <template>
+        <div class="modal-parent scrollable" style="display:none" id="modal_view">
+            <div class="modal-container">
+                <div id="close-button">
+                        <button id="x" class="modal-btn" @click="closeModal">X</button>
+                </div>
+                <div class="modal-header">
+                    <slot name="header">
+                        Terms & Conditions
+                    </slot>
+                </div>
+                <div class="modal-body">
+                    <slot name="body">
+                        @php
+                            try {
+                                    if($gdpr && $gdpr->customer_agreement_status == 1) {
+                        @endphp
+                                        {!! $gdpr->agreement_content !!}
+                        @php
+                                    }
+                                } catch(\Exception $e) {}
+                        @endphp
+                    </slot>
+                </div>
+            </div>
+        </div>
+    </template>
+</script>
+
+<script type="text/javascript">
+    (() => {
+        Vue.component('modal-view', {
+            'template': '#modalView',
+            props: ['id', 'isOpen'],
+            data: function () {
+                return {
+                }
+            },
+            computed: {
+                isModalOpen: function () {
+                this.addClassToBody();
+                return this.isOpen;
+                }
+            },
+            methods: {
+                    addClassToBody: function () {
+                    var body = document.querySelector("body");
+                        if(this.isOpen) {
+                            body.classList.add("modal-open");
+                        } else {
+                            body.classList.remove("modal-open");
+                        }
+                    }
+            }
+        })
+    })()
+</script>
+
+<script>
+
+    function closeModal() {
+
+        document.getElementById("modal_view").style.display = "none";
+    }
+
+    function myFunction() {
+
+        var x = document.getElementById("modal_view");
+        
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        }
+    }
+
+</script>
+
+@endpush

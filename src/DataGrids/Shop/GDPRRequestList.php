@@ -1,9 +1,9 @@
 <?php
 
-namespace Webkul\GDPR\DataGrids;
+namespace Webkul\GDPR\DataGrids\Shop;
 
-use DB;
 use Webkul\Ui\DataGrid\DataGrid;
+use Illuminate\Support\Facades\DB;
 
 class GDPRRequestList extends DataGrid
 {
@@ -25,25 +25,14 @@ class GDPRRequestList extends DataGrid
 
     public function prepareQueryBuilder()
     {
-        $customerId = NULL;
-
-        if (auth()->guard('customer')->user()) {
-          
-            $customerId = auth()->guard('customer')->user()->id;
-        }
-
+        $customerId = auth()->guard('customer')->user()->id;
        
         $queryBuilder = DB::table('gdpr_data_request as gdpr')
-                                 ->addSelect('gdpr.id',
-                                             'gdpr.request_status',
-                                             'gdpr.request_type',
-                                             'gdpr.message',
-                                             'gdpr.created_at',
-                                             'gdpr.updated_at'
-        )->where('gdpr.customer_id', $customerId);
-               $this->setQueryBuilder($queryBuilder);
-    }
+                                 ->addSelect('gdpr.id','gdpr.request_status','gdpr.request_type','gdpr.message','gdpr.created_at','gdpr.updated_at')
+                                 ->where('gdpr.customer_id', $customerId);
 
+        $this->setQueryBuilder($queryBuilder);
+    }
 
     public function addColumns()
     {
@@ -54,6 +43,7 @@ class GDPRRequestList extends DataGrid
             'searchable' => true,
             'sortable' => true,
             'filterable' => true
+        
         ]);
 
         $this->addColumn([
@@ -93,6 +83,7 @@ class GDPRRequestList extends DataGrid
             'sortable' => true,
             'searchable' => false,
             'filterable' => true
+
         ]);
 
         $this->addColumn([
@@ -102,6 +93,7 @@ class GDPRRequestList extends DataGrid
             'sortable' => true,
             'searchable' => false,
             'filterable' => true
+            
         ]);
     }
 }
