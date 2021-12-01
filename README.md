@@ -8,13 +8,12 @@
 
 Bagisto GDPR will help customers to Send Data Requests for Changing name , email ID , many more as well as customer can also send request for delete a particular data. Through this module customer can also see their all detaills like personal Details , Address Details , Order Details in pdf & html formate. If admin is satisfied with the GDPR Data Request of the customer then admin could proceed the request of change a particular info or delete a  particular info of the customer.
 
-* Customers can send Data Request for Changing information in their acccount.
-* Customers can send Data Request for deleteing a particular information in their acccount.
+* Customers can send Data Request for changing information in their acccount.
+* Customers can send Data Request for deleting a particular information in their acccount.
 * After sending any Request customer recieves a mail on their registered email id.
 * Customer can see thier all details like Personal Detail, Address Detail , Order detail through just one click in pdf and html formats.
 * Admin can Enable/Disable GDPR Module.
 * Admin can Enable/Disable Customer Agreement in GDPR Module.
-* Admin can Enable/Disable Cookie Management in GDPR Module.
 * Admin can Enable/Disable Cookie Management in GDPR Module.
 * Admin can see the list of all Data Request.
 * Admin can solve the Data Request and can change the status of the request.
