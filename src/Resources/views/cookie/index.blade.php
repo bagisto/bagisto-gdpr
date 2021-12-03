@@ -1,4 +1,3 @@
-   
 @include('gdpr::cookie.dialogContents')
 
 @push('scripts')
@@ -6,6 +5,7 @@
 
         const COOKIE_VALUE = 1;
         const COOKIE_DOMAIN = '{{ config('session.domain') ?? request()->getHost() }}';
+        const COOKIE_IP_VALUE = "<?php echo $_SERVER['REMOTE_ADDR']; ?>";
 
         window.onload = function() {
 
@@ -16,6 +16,15 @@
 
         function createCookie() {
             
+            if (cookieExists()) {
+                hideCookieDialog();
+            } else {
+                consentWithCookies();
+                acceptAllConsentWithCookies();
+            }
+        }
+
+        function rejectCookie() {
             if (cookieExists()) {
                 hideCookieDialog();
             } else {
@@ -37,16 +46,22 @@
 
         function consentWithCookies() {
             
-                    setCookie('cookie-consent', COOKIE_VALUE, 365 * 20);
-                    hideCookieDialog();
+            setCookie('cookie-consent', COOKIE_VALUE, 365 * 20);
+            hideCookieDialog();
+        }
+
+        function acceptAllConsentWithCookies() {
+            
+            setCookie('ip_address', COOKIE_IP_VALUE, 365 * 20);
+            hideCookieDialog();
         }
 
         function cookieExists() {
 
-                    var name = 'cookie-consent';
-                    return (document.cookie.split('; ').indexOf(name + '=' + COOKIE_VALUE) !== -1);
+            var name = 'cookie-consent';
+            return (document.cookie.split('; ').indexOf(name + '=' + COOKIE_VALUE) !== -1);
         }
-
+        
         function hideCookieDialog() {
 
             const dialogs = document.getElementsByClassName('js-cookie-consent');

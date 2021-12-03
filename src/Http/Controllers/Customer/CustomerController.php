@@ -238,4 +238,5 @@ class CustomerController extends Controller
 
         return view($this->_config['view'],compact('param'));
     }
+    
 }

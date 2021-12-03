@@ -125,58 +125,36 @@
                     </div>
                 </div>
             </accordian>
-            <accordian :title="'{{ __('gdpr::app.admin.create-gdpr.email-templates-settings') }}'" :active="true">
+            <accordian :title="'{{ __('gdpr::app.shop.customer.cookie.your-cookie-consent-preferences') }}'" :active="true">
                 <div slot="body">
                     <div class="control-group">
-                        <label>{{ __('gdpr::app.admin.create-gdpr.data-update-request-template') }}</label>
+                        <label>{{ __('gdpr::app.shop.customer.cookie.strictly-necessary') }}</label>
 
-                        <select class="control" id="data_update_request_template" name="data_update_request_template">
-                              <option value="data-update-request-template">
-                                    Data Update Request (Default)
-                              </option>
-                              <option value="another">
-                                    Data Update Request 1
-                              </option>
-                        </select>   
+                        <textarea class="control" id="strictly_necessary_cookie" name="strictly_necessary_cookie">{{ $gdprData->strictly_necessary_cookie }}</textarea>
                     </div>
 
                     <div class="control-group">
-                        <label>{{ __('gdpr::app.admin.create-gdpr.data-delete-request-template') }}</label>
+                        <label>{{ __('gdpr::app.shop.customer.cookie.basic-interactions-and-functionalities') }}</label>
 
-                        <select class="control" id="data_delete_request_template" name="data_delete_request_template">
-                              <option value="data-delete-request-template">
-                                    Data Delete Request (Default)
-                              </option>
-                              <option value="another">
-                                    Data Delete Request 1
-                              </option>
-                        </select>   
+                        <textarea class="control" id="basic_interactions_and_functionalities_cookie" name="basic_interactions_and_functionalities_cookie">{{ $gdprData->basic_interactions_and_functionalities_cookie }}</textarea>
                     </div>
 
                     <div class="control-group">
-                        <label>{{ __('gdpr::app.admin.create-gdpr.request-status-update-template') }}</label>
+                        <label>{{ __('gdpr::app.shop.customer.cookie.experience-enhancement') }}</label>
 
-                        <select class="control" id="request_status_update_template" name="request_status_update_template">
-                              <option value="request-status-update-template">
-                                    Request Status Update (Default)
-                              </option>
-                              <option value="another">
-                                    Request Status Update 1
-                              </option>
-                        </select>   
+                        <textarea class="control" id="experience_enhancement_cookie" name="experience_enhancement_cookie">{{ $gdprData->experience_enhancement_cookie }}</textarea>
                     </div>
 
                     <div class="control-group">
-                        <label>{{ __('gdpr::app.admin.create-gdpr.request-status-delete-template') }}</label>
+                        <label>{{ __('gdpr::app.shop.customer.cookie.measurement') }}</label>
 
-                        <select class="control" id="request_status_delete_template" name="request_status_delete_template">
-                              <option value="request-status-delete-template">
-                                    Request Status Delete (Default)
-                              </option>
-                              <option value="another">
-                                    Request Status Delete 1
-                              </option>
-                        </select>   
+                        <textarea class="control" id="measurement_cookie" name="measurement_cookie">{{ $gdprData->measurement_cookie }}</textarea>
+                    </div>
+
+                    <div class="control-group">
+                        <label>{{ __('gdpr::app.shop.customer.cookie.targeting-and-advertising') }}</label>
+
+                        <textarea class="control" id="targeting_and_advertising_cookie" name="targeting_and_advertising_cookie">{{ $gdprData->targeting_and_advertising_cookie }}</textarea>
                     </div>
                 </div>
             </accordian>
