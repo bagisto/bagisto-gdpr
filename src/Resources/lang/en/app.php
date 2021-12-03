@@ -5,6 +5,21 @@ return [
         'customer' => [
             'menu-name' => 'Data Request',
             'title' => 'Data Request',
+            'cookie' => [
+                'cookie-description' => 'We and selected third parties use cookies or similar technologies for technical purposes and, with your consent, for other purposes as specified in the',
+                'privacy-policy' => 'Privacy Policy',
+                'learn-more-and-customize' => 'Learn more and customize',
+                'accept' => 'Accept',
+                'reject'   => 'Reject',
+                'your-cookie-consent-preferences' => 'Your Cookie Consent Preferences',
+                'save-and-continue' => 'Save and conitue',
+                'strictly-necessary' => 'Strictly Necessary',
+                'basic-interactions-and-functionalities' => 'Basic Interactions & Functionalities',
+                'experience-enhancement' => 'Experience Enhancement',
+                'measurement' => 'Measurement',
+                'targeting-and-advertising' => 'Targeting & Advertising',
+
+            ]
         ],
         
         'customer-gdpr-data-request' => [

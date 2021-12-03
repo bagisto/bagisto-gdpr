@@ -22,10 +22,11 @@ class CreateGdprTable extends Migration
             $table->boolean('cookie_status');
             $table->string('cookie_block_position');
             $table->string('cookie_static_block_identifier')->nullable();
-            $table->string('data_update_request_template')->nullable();
-            $table->string('data_delete_request_template')->nullable();
-            $table->string('request_status_update_template')->nullable();
-            $table->string('request_status_delete_template')->nullable();
+            $table->longText('strictly_necessary_cookie')->nullable();
+            $table->longText('basic_interactions_and_functionalities_cookie')->nullable();
+            $table->longText('experience_enhancement_cookie')->nullable();
+            $table->longText('measurement_cookie')->nullable();
+            $table->longText('targeting_and_advertising_cookie')->nullable();
             $table->timestamps();
         });
     }

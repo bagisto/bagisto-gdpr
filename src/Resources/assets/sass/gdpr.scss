@@ -1,10 +1,13 @@
+/* main imports */
+@import "main/variables";
+
 .icon.gdpr::before {
     content: "\e96b"
 }
 
 .cookieConsentContainer {
     z-index: 999;
-    width: 350px;
+    width: 100%;
     min-height: 20px;
     box-sizing: border-box;
     padding: 30px 30px 30px 30px;
@@ -12,13 +15,12 @@
     overflow: hidden;
     position: fixed;
     bottom: 30px;
-    right: 30px;
     display: none;
 }
 
 .cookieConsentContainer .cookieTitle a, .cookieConsentContainer .cookieTitle a:hover {
     font-family: OpenSans, arial, "sans-serif";
-    color: #ffff;
+    color: #ffff!important;
     font-size: 22px;
     line-height: 20px;
     display: block;
@@ -49,10 +51,12 @@
     font-weight: bold;
     margin-top: 14px;
     background: #26a37c;
+    margin-right: 10px;
     box-sizing: border-box;
     padding: 15px 24px;
     text-align: center;
     transition: background 0.3s;
+    float: right;
 }
 
 .cookieConsentContainer .cookieButton a:hover {
@@ -80,47 +84,46 @@
 }
 
 .tab {
-overflow: hidden;
-background-color: #f1f1f1;
-border-radius: 5px;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    border-radius: 5px;
 }
 
 .tab button {
-background-color: inherit;
-float: left;
-border: none;
-outline: none;
-cursor: pointer;
-padding: 14px 16px;
-transition: 0.3s;
-font-size: 17px;
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
 }
 
 .tab button:hover {
-background-color: #ddd;
+    background-color: #ddd;
 }
 
 
 .tab button.active {
-background-color: #00800061;
+    background-color: #00800061;
 }
 
 
 .tabcontent {
-display: none;
-padding: 6px 12px;
-border-top: none;
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
 }
 
-
 .topright {
-float: right;
-cursor: pointer;
-font-size: 28px;
+    float: right;
+    cursor: pointer;
+    font-size: 28px;
 }
 
 .sale-section.no-border {
-margin-top: 20px;
+    margin-top: 20px;
 }
 
 .request-submit-btn {
@@ -138,3 +141,161 @@ margin-top: 20px;
     border: none; 
     background-color: white;
 }
+
+.cookie-customize-btn {
+    float:right;
+    margin-bottom:10px;
+}
+
+.accordian, accordian {
+    display: inline-block;
+    width: 100%;
+
+    .accordian-header, div[slot*="header"] {
+        width: 100%;
+        display: inline-block;
+        font-size: 18px;
+        color: $font-color;
+        border-top: solid 1px $border-color;
+        border-bottom: solid 1px $border-color;
+        padding: 20px 15px;
+        cursor: pointer;
+        margin-top: -1px;
+
+        .expand-icon {
+            background-image: url("../images/Expand-Light.svg");
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .icon {
+            float: right;
+
+            &.left {
+                float: left;
+            }
+        }
+    }
+
+    &.error {
+        .accordian-header {
+            color: #ff5656;
+        }
+    }
+
+    .accordian-content, div[slot*="body"] {
+        width: 100%;
+        padding: 20px 15px;
+        display: none;
+        transition: 0.3s ease all;
+    }
+
+    &.active > .accordian-content {
+        display: inline-block;
+    }
+
+    &.active > .accordian-header .expand-icon {
+        background-image: url("../images/Expand-Light-On.svg");
+    }
+}
+
+.control-group {
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: $filter-toggle-color;
+        -webkit-transition: .2s;
+        transition: .2s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: $white-color;
+        -webkit-transition: .2s;
+        transition: .2s;
+    }
+
+    input:checked + .slider {
+        background-color: $brand-color;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px $brand-color;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+        }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+}
+
+.control-group {
+    display: block;
+    margin-bottom: 25px;
+    font-size: 15px;
+    color: $font-color;
+    width: 750px;
+    max-width: 100%;
+    position: relative;
+
+    label {
+        display: block;
+        color: $font-color;
+    }
+
+    .control {
+        background: $white-color;
+        border: 2px solid $control-border-color;
+        width: 70%;
+        height: 36px;
+        display: inline-block;
+        vertical-align: middle;
+        transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 0px 10px;
+        font-size: 15px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+}
+

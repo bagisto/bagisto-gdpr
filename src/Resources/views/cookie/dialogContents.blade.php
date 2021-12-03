@@ -10,10 +10,14 @@
                 <a>Cookies.</a>
             </div>
             <div class="cookieDesc cookie-consent__message">
-                <p>By using this website, you automatically accept that we use cookies.</p>
+                <p>{{ __('gdpr::app.shop.customer.cookie.cookie-description') }}<a href="{{ url()->to('/') .'/page/	privacy-policy' }}"> {{ __('gdpr::app.shop.customer.cookie.privacy-policy') }}</a></p>
             </div>
             <div class="cookieButton">
-                <a class="js-cookie-consent-agree cookie-consent__agree" onclick="createCookie()">Understood</a>
+                <a class="js-cookie-consent-agree cookie-consent__agree" onclick="rejectCookie()">{{ __('gdpr::app.shop.customer.cookie.reject') }}</a>
+          
+                <a class="js-cookie-consent-agree cookie-consent__agree" onclick="createCookie()">{{ __('gdpr::app.shop.customer.cookie.accept') }}</a>
+
+                <a class="js-cookie-consent-agree cookie-consent__agree" onclick="createCookie()" href="{{ route('gdpr.cookie.index') }}">{{ __('gdpr::app.shop.customer.cookie.learn-more-and-customize') }}</a>
             </div>
         </div>
 @endif

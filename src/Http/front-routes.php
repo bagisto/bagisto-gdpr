@@ -17,12 +17,15 @@
                 
                 Route::get('/htmlview', 'CustomerController@htmlview')->defaults('_config', [
                     'view' => 'gdpr::shop.customers.gdpr.pdfview',
-                    ])->name('gdpr.customers.htmlview');
-                    
+                    ])->name('gdpr.customers.htmlview');  
             });  
             
         });
 
+        Route::get('/your-cookie-consent-preferences', 'Webkul\GDPR\Http\Controllers\Customer\CookieController@index')->defaults('_config', [
+            'view' => 'gdpr::shop.cookie.index',
+            ])->name('gdpr.cookie.index');
+        
     });
 
 

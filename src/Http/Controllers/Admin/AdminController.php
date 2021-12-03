@@ -92,7 +92,7 @@ class AdminController extends Controller
             $cookieStatus = 0;
         }
 
-        $params = request()->all() + [
+        $params = request()->except('_token') + [
             'gdpr_status'=>$gdprStatus,
             'customer_agreement_status'=>$customerAgreementStatus,
             'cookie_status'=>$cookieStatus
@@ -108,7 +108,7 @@ class AdminController extends Controller
         unset($params['customer_agreement']);
         unset($params['enabled_cookie_notice']);
 
-        $this->gdprRepository->update($params, $id);
+        $this->gdprRepository->where('id',$id)->update($params);
          
         Artisan::call('optimize');
 
