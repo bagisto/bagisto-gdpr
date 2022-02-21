@@ -2,7 +2,7 @@
 
 #### This changelog consists the bug & security fixes and new features being included in the releases listed below.
 
-## **v1.3.2(10th December, 2021)** - _Release_
+## **v1.3.2(21 February, 2022)** - _Release_
 
 - [feature] Compatibility with Bagisto v1.3.3.
 
