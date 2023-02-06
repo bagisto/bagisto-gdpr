@@ -7,12 +7,10 @@
         const COOKIE_DOMAIN = '{{ config('session.domain') ?? request()->getHost() }}';
         const COOKIE_IP_VALUE = "<?php echo $_SERVER['REMOTE_ADDR']; ?>";
 
-        window.onload = function() {
 
             if(cookieExists()) {
                 hideCookieDialog();
             }
-        };
 
         function createCookie() {
             
